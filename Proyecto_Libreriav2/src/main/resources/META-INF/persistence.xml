@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+  <persistence-unit name="AppP" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <class>com.apirest.model.Autor</class>
+    <class>com.apirest.model.Editorial</class>
+    <class>com.apirest.model.Ejemplar</class>
+    <class>com.apirest.model.Historial</class>
+    <class>com.apirest.model.Multa</class>
+    <class>com.apirest.model.Notificacion</class>
+    <class>com.apirest.model.Obra</class>
+    <class>com.apirest.model.ObraAutor</class>
+    <class>com.apirest.model.Prestamo</class>
+    <class>com.apirest.model.Reserva</class>
+    <class>com.apirest.model.TipoObra</class>
+    <class>com.apirest.model.Usuario</class>
+    <properties>
+      <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Libreria"/>
+      <property name="jakarta.persistence.jdbc.user" value="postgres"/>
+      <property name="jakarta.persistence.jdbc.password" value="gonza"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <property name="hibernate.show_sql" value="true"/>
+    </properties>
+  </persistence-unit>
+</persistence>
