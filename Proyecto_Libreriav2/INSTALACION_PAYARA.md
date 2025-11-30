@@ -37,18 +37,6 @@ Hay dos formas de descargarlo:
 2. Busca "Payara Server 6.2023.12" o una versión más nueva
 3. Descarga el archivo ZIP (Full Profile)
 
-### Forma 2: Descarga con comando (más rápido)
-
-Abre PowerShell en Windows y ejecuta:
-```powershell
-Invoke-WebRequest -Uri "https://repo1.maven.org/maven2/fish/payara/distributions/payara/6.2023.12/payara-6.2023.12.zip" -OutFile "payara-6.2023.12.zip"
-```
-
-Si estás en Linux o Mac:
-```bash
-wget https://repo1.maven.org/maven2/fish/payara/distributions/payara/6.2023.12/payara-6.2023.12.zip
-```
-
 ## Paso 3: Instalar Payara
 
 ### En Windows
@@ -57,68 +45,8 @@ wget https://repo1.maven.org/maven2/fish/payara/distributions/payara/6.2023.12/p
 2. Selecciona "Extraer todo..."
 3. Extrae a `C:\` (te quedará una carpeta `C:\payara6`)
 
-O si prefieres usar PowerShell:
-```powershell
-Expand-Archive -Path payara-6.2023.12.zip -DestinationPath C:\
-```
 
-Al final tendrás esta carpeta:
-```
-C:\payara6\
-   └── bin\  (aquí están los comandos)
-   └── glassfish\  (aquí está todo el servidor)
-```
-
-### En Linux o Mac
-
-1. Abre la terminal
-2. Descomprime el archivo:
-   ```bash
-   unzip payara-6.2023.12.zip -d /opt/
-   ```
-
-3. Dale permisos para poder ejecutarlo:
-   ```bash
-   sudo chown -R $USER:$USER /opt/payara6
-   chmod +x /opt/payara6/bin/asadmin
-   ```
-
-## Paso 4: Configurar Windows para encontrar Payara (Opcional)
-
-Esto es opcional pero te facilitará la vida. Si lo haces, podrás ejecutar comandos de Payara desde cualquier carpeta.
-
-### En Windows
-
-1. Presiona la tecla Windows y busca "variables de entorno"
-2. Haz clic en "Editar las variables de entorno del sistema"
-3. Haz clic en el botón "Variables de entorno..."
-4. En "Variables del sistema", haz clic en "Nueva..."
-   - Nombre: `PAYARA_HOME`
-   - Valor: `C:\payara6`
-5. Busca la variable "Path", selecciónala y haz clic en "Editar..."
-6. Haz clic en "Nuevo" y agrega: `%PAYARA_HOME%\bin`
-7. Dale "Aceptar" a todo
-8. Cierra y abre de nuevo cualquier terminal que tengas abierta
-
-### En Linux o Mac
-
-Abre tu archivo de configuración de la terminal:
-```bash
-nano ~/.bashrc
-```
-
-Agrega al final:
-```bash
-export PAYARA_HOME=/opt/payara6
-export PATH=$PAYARA_HOME/bin:$PATH
-```
-
-Guarda (Ctrl+O, Enter, Ctrl+X) y luego ejecuta:
-```bash
-source ~/.bashrc
-```
-
-## Paso 5: Arrancar Payara por primera vez
+## Paso 4: Arrancar Payara por primera vez
 
 Ahora vamos a encender el servidor.
 
@@ -135,13 +63,6 @@ Si configuraste las variables de entorno en el paso anterior, simplemente escrib
 asadmin start-domain
 ```
 
-### En Linux o Mac
-
-Abre la terminal y escribe:
-```bash
-cd /opt/payara6/bin
-./asadmin start-domain
-```
 
 ### Comprobar que funciona
 
@@ -152,7 +73,7 @@ Espera unos segundos y luego abre tu navegador. Visita estas direcciones:
 
 Si ves la página de Payara, felicidades, está funcionando.
 
-## Paso 6: Instalar el driver de PostgreSQL
+## Paso 5: Instalar el driver de PostgreSQL
 
 Para que Payara pueda hablar con PostgreSQL, necesita un archivo especial llamado "driver".
 
@@ -175,10 +96,7 @@ En Windows (abre CMD en la carpeta donde está el archivo):
 copy postgresql-42.7.4.jar C:\payara6\glassfish\domains\domain1\lib\
 ```
 
-En Linux o Mac:
-```bash
-cp postgresql-42.7.4.jar /opt/payara6/glassfish/domains/domain1/lib/
-```
+
 
 ### Reiniciar Payara
 
@@ -187,7 +105,7 @@ Para que reconozca el driver, reinicia Payara:
 asadmin restart-domain
 ```
 
-## Paso 7: Conectar Payara con tu base de datos
+## Paso 6: Conectar Payara con tu base de datos
 
 Ahora vamos a decirle a Payara cómo conectarse a PostgreSQL.
 
@@ -214,17 +132,12 @@ Ahora vamos a decirle a Payara cómo conectarse a PostgreSQL.
    - **PortNumber**: `5432`
    - **DatabaseName**: `Libreria`
    - **User**: `postgres`
-   - **Password**: `gonza` (o la contraseña que uses)
+   - **Password**: `*****` (o la contraseña que uses)
 
 7. Haz clic en "Finish" (Finalizar)
 
-8. Ahora prueba que funciona:
-   - Haz clic en el pool "LibreriaPool" que acabas de crear
-   - Busca el botón "Ping" arriba
-   - Haz clic en "Ping"
-   - Deberías ver un mensaje verde que dice "Ping Succeeded"
 
-9. Ahora crea el recurso JDBC:
+8. Ahora crea el recurso JDBC:
    - Ve a: Resources > JDBC > JDBC Resources
    - Haz clic en "New..."
    - Escribe:
@@ -248,15 +161,6 @@ asadmin ping-connection-pool LibreriaPool
 asadmin create-jdbc-resource --connectionpoolid LibreriaPool jdbc/LibreriaDS
 ```
 
-En Linux o Mac:
-```bash
-cd /opt/payara6/bin
-./asadmin create-jdbc-connection-pool --datasourceclassname org.postgresql.ds.PGSimpleDataSource --restype javax.sql.DataSource --property ServerName=localhost:PortNumber=5432:DatabaseName=Libreria:User=postgres:Password=gonza LibreriaPool
-
-./asadmin ping-connection-pool LibreriaPool
-
-./asadmin create-jdbc-resource --connectionpoolid LibreriaPool jdbc/LibreriaDS
-```
 
 ### Forma automática: Usar el script del proyecto
 
@@ -400,12 +304,6 @@ netstat -ano | findstr :8080
 taskkill /PID <numero_que_aparece> /F
 ```
 
-En Linux/Mac:
-```bash
-lsof -i :8080
-kill -9 <numero_que_aparece>
-```
-
 Opción 2 - Cambiar el puerto de Payara:
 ```bash
 asadmin set server.network-config.network-listeners.network-listener.http-listener-1.port=9090
@@ -505,5 +403,4 @@ Una vez que todo esté listo, estas son las URLs que vas a usar:
 
 ---
 
-Si seguiste todos los pasos, tu aplicación ya debería estar funcionando. Si algo no funciona, revisa la sección "Problemas comunes" más arriba.
 
