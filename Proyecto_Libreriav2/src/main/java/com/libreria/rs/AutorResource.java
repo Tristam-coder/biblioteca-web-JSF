@@ -1,21 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.libreria.rs;
 
-/**
- *
- * @author CESAR
- */
-
-
 import com.libreria.model.Autor;
+import com.libreria.dto.AutorDTO; // Importar el DTO
 import com.libreria.service.AutorService;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors; // Para mapear listas
 
 @Path("/autores")
 @Produces(MediaType.APPLICATION_JSON)
@@ -26,8 +18,12 @@ public class AutorResource {
 
     @GET
     public Response listar() {
-        List<Autor> all = service.findAll();
-        return Response.ok(all).build();
+        List<Autor> entities = service.findAll();
+        // Mapear la lista de Entidades a una lista de DTOs
+        List<AutorDTO> dtos = entities.stream()
+                .map(AutorDTO::new)
+                .collect(Collectors.toList());
+        return Response.ok(dtos).build();
     }
 
     @GET
@@ -37,24 +33,37 @@ public class AutorResource {
         if (a == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(a).build();
+        // Retornar el DTO
+        return Response.ok(new AutorDTO(a)).build();
     }
 
     @POST
-    public Response crear(Autor autor, @Context UriInfo uriInfo) {
+    // Ahora consume un DTO
+    public Response crear(AutorDTO autorDTO, @Context UriInfo uriInfo) {
+        // Convertir DTO a Entidad antes de pasar al servicio
+        Autor autor = autorDTO.toEntity();
+
         Autor creado = service.create(autor);
+
         URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(creado.getId())).build();
-        return Response.created(uri).entity(creado).build();
+        // Retornar el DTO del objeto creado
+        return Response.created(uri).entity(new AutorDTO(creado)).build();
     }
 
     @PUT
     @Path("{id}")
-    public Response actualizar(@PathParam("id") Integer id, Autor cambios) {
+    // Ahora consume un DTO
+    public Response actualizar(@PathParam("id") Integer id, AutorDTO cambiosDTO) {
+        // Convertir DTO a Entidad antes de pasar al servicio
+        Autor cambios = cambiosDTO.toEntity();
+
         Autor actualizado = service.update(id, cambios);
+
         if (actualizado == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(actualizado).build();
+        // Retornar el DTO
+        return Response.ok(new AutorDTO(actualizado)).build();
     }
 
     @DELETE

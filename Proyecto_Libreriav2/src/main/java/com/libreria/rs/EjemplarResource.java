@@ -1,21 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.libreria.rs;
 
-/**
- *
- * @author CESAR
- */
-
-
 import com.libreria.model.Ejemplar;
+import com.libreria.dto.EjemplarDTO; // Importar el DTO
 import com.libreria.service.EjemplarService;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/ejemplares")
 @Produces(MediaType.APPLICATION_JSON)
@@ -26,8 +18,12 @@ public class EjemplarResource {
 
     @GET
     public Response listar() {
-        List<Ejemplar> all = service.findAll();
-        return Response.ok(all).build();
+        List<Ejemplar> entities = service.findAll();
+        // Mapear Entidades a DTOs
+        List<EjemplarDTO> dtos = entities.stream()
+                .map(EjemplarDTO::new)
+                .collect(Collectors.toList());
+        return Response.ok(dtos).build();
     }
 
     @GET
@@ -37,24 +33,39 @@ public class EjemplarResource {
         if (e == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(e).build();
+        // Retornar el DTO
+        return Response.ok(new EjemplarDTO(e)).build();
     }
 
     @POST
-    public Response crear(Ejemplar ejemplar, @Context UriInfo uriInfo) {
-        Ejemplar creado = service.create(ejemplar);
+    public Response crear(EjemplarDTO ejemplarDTO, @Context UriInfo uriInfo) {
+
+        // 1. Convertir DTO a Entidad (la relación Obra aún es nula)
+        Ejemplar ejemplar = ejemplarDTO.toEntity();
+
+        // 2. Llamar al servicio, pasando el ID de la Obra por separado
+        Ejemplar creado = service.create(ejemplar, ejemplarDTO.getObraId());
+
         URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(creado.getId())).build();
-        return Response.created(uri).entity(creado).build();
+        // 3. Retornar el DTO del objeto creado
+        return Response.created(uri).entity(new EjemplarDTO(creado)).build();
     }
 
     @PUT
     @Path("{id}")
-    public Response actualizar(@PathParam("id") Integer id, Ejemplar cambios) {
-        Ejemplar actualizado = service.update(id, cambios);
+    public Response actualizar(@PathParam("id") Integer id, EjemplarDTO cambiosDTO) {
+
+        // 1. Convertir DTO a Entidad
+        Ejemplar cambios = cambiosDTO.toEntity();
+
+        // 2. Llamar al servicio, pasando el ID de la Obra para actualizar la relación
+        Ejemplar actualizado = service.update(id, cambios, cambiosDTO.getObraId());
+
         if (actualizado == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(actualizado).build();
+        // 3. Retornar el DTO
+        return Response.ok(new EjemplarDTO(actualizado)).build();
     }
 
     @DELETE

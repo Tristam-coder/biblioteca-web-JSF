@@ -1,135 +1,67 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.libreria.service;
 
-/**
- *
- * @author CESAR
- */
-
-
 import com.libreria.model.Autor;
-import jakarta.persistence.*;
+import com.libreria.dao.AutorDAO; // Importamos el DAO
 import java.util.List;
 
 /**
- * Servicio para manejar operaciones CRUD de la entidad Autor.
+ * Servicio para manejar operaciones CRUD de la entidad Autor (Lógica de Negocio).
  */
 public class AutorService {
 
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("AppP");
+    // Instanciamos el DAO
+    private final AutorDAO dao = new AutorDAO();
 
     // --------------------------------------------------
     // OPERACIÓN: CREAR (INSERTAR)
     // --------------------------------------------------
     public Autor create(Autor a) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-
-        try {
-            tx.begin();
-            em.persist(a);
-            tx.commit();
-            return a;
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
-        }
+        // Lógica de negocio (ej. validaciones) iría aquí
+        return dao.create(a);
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ENCONTRAR POR ID (SELECT)
     // --------------------------------------------------
     public Autor find(Integer id) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.find(Autor.class, id);
-        } finally {
-            em.close();
-        }
+        return dao.find(id);
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ENCONTRAR TODOS (SELECT ALL)
     // --------------------------------------------------
     public List<Autor> findAll() {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.createQuery("SELECT a FROM Autor a", Autor.class).getResultList();
-        } finally {
-            em.close();
-        }
+        return dao.findAll();
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ACTUALIZAR (UPDATE)
     // --------------------------------------------------
     public Autor update(Integer id, Autor cambios) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
 
-        try {
-            tx.begin();
-            Autor a = em.find(Autor.class, id);
+        // 1. Encontrar la entidad existente
+        Autor a = dao.find(id);
 
-            if (a == null) {
-                tx.rollback();
-                return null;
-            }
-            
-            // Aplicar cambios:
-            a.setNombre(cambios.getNombre());
-            a.setApellido(cambios.getApellido());
-            a.setFechaNacimiento(cambios.getFechaNacimiento());
-            a.setNacionalidad(cambios.getNacionalidad());
-            a.setBiografia(cambios.getBiografia());
-
-            em.merge(a);
-            tx.commit();
-            return a;
-
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
+        if (a == null) {
+            return null;
         }
+
+        // 2. Aplicar cambios a la entidad existente 'a'
+        // NOTA: Se deben añadir comprobaciones de nulo si 'cambios' solo contiene un subconjunto de campos
+        a.setNombre(cambios.getNombre());
+        a.setApellido(cambios.getApellido());
+        a.setFechaNacimiento(cambios.getFechaNacimiento());
+        a.setNacionalidad(cambios.getNacionalidad());
+        a.setBiografia(cambios.getBiografia());
+
+        // 3. Persistir los cambios usando el DAO
+        return dao.update(a);
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ELIMINAR (DELETE)
     // --------------------------------------------------
     public boolean delete(Integer id) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-
-        try {
-            tx.begin();
-            Autor a = em.find(Autor.class, id);
-
-            if (a == null) {
-                tx.rollback();
-                return false;
-            }
-            em.remove(a);
-            tx.commit();
-            return true;
-
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
-        }
+        return dao.delete(id);
     }
 }

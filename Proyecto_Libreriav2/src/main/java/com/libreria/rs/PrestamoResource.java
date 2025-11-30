@@ -1,32 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.libreria.rs;
 
-/**
- *
- * @author CESAR
- */
-
+import com.libreria.dto.PrestamoDTO; // Importar DTO
 import com.libreria.model.Prestamo;
 import com.libreria.service.PrestamoService;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/prestamos")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class PrestamoResource {
 
-    private PrestamoService service = new PrestamoService();
+    @Inject // 🎯 Usar inyección
+    private PrestamoService service;
 
     @GET
     public Response listar() {
         List<Prestamo> all = service.findAll();
-        return Response.ok(all).build();
+        List<PrestamoDTO> dtos = all.stream().map(PrestamoDTO::new).collect(Collectors.toList());
+        return Response.ok(dtos).build();
     }
 
     @GET
@@ -36,24 +32,36 @@ public class PrestamoResource {
         if (p == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(p).build();
+        return Response.ok(new PrestamoDTO(p)).build();
     }
 
     @POST
-    public Response crear(Prestamo prestamo, @Context UriInfo uriInfo) {
-        Prestamo creado = service.create(prestamo);
-        URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(creado.getId())).build();
-        return Response.created(uri).entity(creado).build();
+    public Response crear(PrestamoDTO prestamoDTO, @Context UriInfo uriInfo) {
+        Prestamo prestamo = prestamoDTO.toEntity();
+
+        try {
+            Prestamo creado = service.create(prestamo, prestamoDTO.getUsuarioId(), prestamoDTO.getEjemplarId());
+            URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(creado.getId())).build();
+            return Response.created(uri).entity(new PrestamoDTO(creado)).build();
+        } catch (RuntimeException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
     }
 
     @PUT
     @Path("{id}")
-    public Response actualizar(@PathParam("id") Integer id, Prestamo cambios) {
-        Prestamo actualizado = service.update(id, cambios);
-        if (actualizado == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+    public Response actualizar(@PathParam("id") Integer id, PrestamoDTO cambiosDTO) {
+        Prestamo cambios = cambiosDTO.toEntity();
+
+        try {
+            Prestamo actualizado = service.update(id, cambios, cambiosDTO.getUsuarioId(), cambiosDTO.getEjemplarId());
+            if (actualizado == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            return Response.ok(new PrestamoDTO(actualizado)).build();
+        } catch (RuntimeException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-        return Response.ok(actualizado).build();
     }
 
     @DELETE

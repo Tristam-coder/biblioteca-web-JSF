@@ -1,16 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.libreria.service;
 
-/**
- *
- * @author CESAR
- */
-
+import com.libreria.dao.HistorialDAO;
 import com.libreria.model.Historial;
-import jakarta.persistence.*;
+import com.libreria.model.Usuario; // Necesario para gestionar la relación
 import java.util.List;
 
 /**
@@ -18,112 +10,85 @@ import java.util.List;
  */
 public class HistorialService {
 
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("AppP");
+    private final HistorialDAO dao = new HistorialDAO();
+    // NOTA: Asumimos la existencia de UsuarioService o UsuarioDAO para buscar el Usuario relacionado.
+    // private final UsuarioService usuarioService = new UsuarioService();
+
+    // Helper para simular la búsqueda de Usuario
+    private Usuario findUsuarioById(Integer usuarioId) {
+        // En un caso real: return usuarioService.find(usuarioId);
+        // Placeholder:
+        if (usuarioId != null) {
+            // En un entorno JPA, usarías em.getReference(Usuario.class, usuarioId) o em.find()
+            Usuario usuario = new Usuario();
+            usuario.setId(usuarioId);
+            return usuario;
+        }
+        return null;
+    }
 
     // --------------------------------------------------
     // OPERACIÓN: CREAR (INSERTAR)
     // --------------------------------------------------
-    public Historial create(Historial h) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.persist(h);
-            tx.commit();
-            return h;
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
+    public Historial create(Historial h, Integer usuarioId) {
+        // Lógica de negocio: establecer el Usuario a partir del ID
+        Usuario usuario = findUsuarioById(usuarioId);
+        if (usuario == null && usuarioId != null) {
+            throw new RuntimeException("Usuario con ID " + usuarioId + " no encontrado para el registro de Historial.");
         }
+        h.setUsuario(usuario);
+
+        return dao.create(h);
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ENCONTRAR POR ID (SELECT)
     // --------------------------------------------------
     public Historial find(Integer id) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.find(Historial.class, id);
-        } finally {
-            em.close();
-        }
+        return dao.find(id);
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ENCONTRAR TODOS (SELECT ALL)
     // --------------------------------------------------
     public List<Historial> findAll() {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.createQuery("SELECT h FROM Historial h", Historial.class).getResultList();
-        } finally {
-            em.close();
-        }
+        return dao.findAll();
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ACTUALIZAR (UPDATE)
     // --------------------------------------------------
-    public Historial update(Integer id, Historial cambios) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            Historial h = em.find(Historial.class, id);
+    public Historial update(Integer id, Historial cambios, Integer usuarioId) {
 
-            if (h == null) {
-                tx.rollback();
-                return null;
-            }
-            
-            // Aplicar cambios:
-            h.setUsuario(cambios.getUsuario());
-            h.setAccion(cambios.getAccion());
-            h.setTablaAfectada(cambios.getTablaAfectada());
-            h.setRegistroId(cambios.getRegistroId());
-            h.setDetalles(cambios.getDetalles());
+        Historial h = dao.find(id);
 
-            em.merge(h);
-            tx.commit();
-            return h;
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
+        if (h == null) {
+            return null;
         }
+
+        // 1. Aplicar cambios a los campos directos
+        h.setAccion(cambios.getAccion());
+        h.setTablaAfectada(cambios.getTablaAfectada());
+        h.setRegistroId(cambios.getRegistroId());
+        h.setDetalles(cambios.getDetalles());
+
+        // 2. Actualizar la relación Usuario si el ID fue proporcionado
+        if (usuarioId != null) {
+            Usuario usuario = findUsuarioById(usuarioId);
+            if (usuario == null) {
+                throw new RuntimeException("Usuario con ID " + usuarioId + " no encontrado para la actualización.");
+            }
+            h.setUsuario(usuario);
+        }
+
+        // 3. Persistir cambios usando el DAO
+        return dao.update(h);
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ELIMINAR (DELETE)
     // --------------------------------------------------
     public boolean delete(Integer id) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            Historial h = em.find(Historial.class, id);
-
-            if (h == null) {
-                tx.rollback();
-                return false;
-            }
-            em.remove(h);
-            tx.commit();
-            return true;
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
-        }
+        return dao.delete(id);
     }
 }

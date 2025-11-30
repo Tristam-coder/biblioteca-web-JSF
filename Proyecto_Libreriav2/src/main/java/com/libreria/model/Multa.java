@@ -1,138 +1,67 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.libreria.model;
 
-
 import jakarta.persistence.*;
-import jakarta.json.bind.annotation.JsonbTransient; // ¡IMPORTANTE! Importación para exclusión JSON
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
-/**
- * Modelo para la tabla multa
- */
 @Entity
 @Table(name = "multa")
-public class Multa implements Serializable {
+public class Multa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // Columna usuario_id (Clave Foránea)
-    // Se marca como JsonbTransient para evitar ciclos de serialización (Multa -> Usuario -> Multa)
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = true)
-    @JsonbTransient
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
-    // Columna prestamo_id (Clave Foránea)
-    // Se marca como JsonbTransient para evitar ciclos de serialización (Multa -> Prestamo -> Multa)
-    @ManyToOne
-    @JoinColumn(name = "prestamo_id", referencedColumnName = "id", nullable = true)
-    @JsonbTransient
-    private Prestamo prestamo;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "prestamo_id")
+    private Prestamo prestamo; // Puede ser nulo si la multa no está ligada a un préstamo específico
 
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal monto;
+    @Column(name = "monto", nullable = false)
+    private Double monto;
 
-    
-    @Column(length = 200)
+    @Column(name = "motivo", length = 255)
     private String motivo;
 
-    @Column(length = 50)
-    private String estado = "PENDIENTE";
+    @Column(name = "estado", length = 50) // e.g., "PENDIENTE", "PAGADA"
+    private String estado;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "fecha_generacion")
-    private Date fechaGeneracion;
+    // Usamos java.time.LocalDate (solo fecha)
+    @Column(name = "fecha_generacion", nullable = false)
+    private LocalDate fechaGeneracion;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "fecha_pago")
-    private Date fechaPago;
+    private LocalDate fechaPago;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", updatable = false)
-    private Date createdAt;
-
-    // Constructores, Getters y Setters
+    // --- Constructor vacío ---
     public Multa() {
-        this.createdAt = new Date();
-        this.fechaGeneracion = new Date(); // Asumiendo que el default de DB es a nivel de App
-    }
-    // ... Getters y Setters
-    public Integer getId() {
-        return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    // --- Getters y Setters ---
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+    public Usuario getUsuario() { return usuario; }
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
 
-    public Prestamo getPrestamo() {
-        return prestamo;
-    }
+    public Prestamo getPrestamo() { return prestamo; }
+    public void setPrestamo(Prestamo prestamo) { this.prestamo = prestamo; }
 
-    public void setPrestamo(Prestamo prestamo) {
-        this.prestamo = prestamo;
-    }
+    public Double getMonto() { return monto; }
+    public void setMonto(Double monto) { this.monto = monto; }
 
-    public BigDecimal getMonto() {
-        return monto;
-    }
+    public String getMotivo() { return motivo; }
+    public void setMotivo(String motivo) { this.motivo = motivo; }
 
-    public void setMonto(BigDecimal monto) {
-        this.monto = monto;
-    }
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
 
-    public String getMotivo() {
-        return motivo;
-    }
+    public LocalDate getFechaGeneracion() { return fechaGeneracion; }
+    public void setFechaGeneracion(LocalDate fechaGeneracion) { this.fechaGeneracion = fechaGeneracion; }
 
-    public void setMotivo(String motivo) {
-        this.motivo = motivo;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public Date getFechaGeneracion() {
-        return fechaGeneracion;
-    }
-
-    public void setFechaGeneracion(Date fechaGeneracion) {
-        this.fechaGeneracion = fechaGeneracion;
-    }
-
-    public Date getFechaPago() {
-        return fechaPago;
-    }
-
-    public void setFechaPago(Date fechaPago) {
-        this.fechaPago = fechaPago;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
+    public LocalDate getFechaPago() { return fechaPago; }
+    public void setFechaPago(LocalDate fechaPago) { this.fechaPago = fechaPago; }
 }

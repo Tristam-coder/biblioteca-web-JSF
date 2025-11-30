@@ -1,20 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.libreria.rs;
 
-/**
- *
- * @author CESAR
- */
-
 import com.libreria.model.Historial;
+import com.libreria.dto.HistorialDTO; // Importar el DTO
 import com.libreria.service.HistorialService;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/historiales")
 @Produces(MediaType.APPLICATION_JSON)
@@ -25,8 +18,12 @@ public class HistorialResource {
 
     @GET
     public Response listar() {
-        List<Historial> all = service.findAll();
-        return Response.ok(all).build();
+        List<Historial> entities = service.findAll();
+        // Mapear Entidades a DTOs
+        List<HistorialDTO> dtos = entities.stream()
+                .map(HistorialDTO::new)
+                .collect(Collectors.toList());
+        return Response.ok(dtos).build();
     }
 
     @GET
@@ -36,24 +33,39 @@ public class HistorialResource {
         if (h == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(h).build();
+        // Retornar el DTO
+        return Response.ok(new HistorialDTO(h)).build();
     }
 
     @POST
-    public Response crear(Historial historial, @Context UriInfo uriInfo) {
-        Historial creado = service.create(historial);
+    public Response crear(HistorialDTO historialDTO, @Context UriInfo uriInfo) {
+
+        // 1. Convertir DTO a Entidad (la relación Usuario aún es nula)
+        Historial historial = historialDTO.toEntity();
+
+        // 2. Llamar al servicio, pasando el ID del Usuario por separado
+        Historial creado = service.create(historial, historialDTO.getUsuarioId());
+
         URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(creado.getId())).build();
-        return Response.created(uri).entity(creado).build();
+        // 3. Retornar el DTO del objeto creado
+        return Response.created(uri).entity(new HistorialDTO(creado)).build();
     }
 
     @PUT
     @Path("{id}")
-    public Response actualizar(@PathParam("id") Integer id, Historial cambios) {
-        Historial actualizado = service.update(id, cambios);
+    public Response actualizar(@PathParam("id") Integer id, HistorialDTO cambiosDTO) {
+
+        // 1. Convertir DTO a Entidad
+        Historial cambios = cambiosDTO.toEntity();
+
+        // 2. Llamar al servicio, pasando el ID del Usuario para actualizar la relación
+        Historial actualizado = service.update(id, cambios, cambiosDTO.getUsuarioId());
+
         if (actualizado == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(actualizado).build();
+        // 3. Retornar el DTO
+        return Response.ok(new HistorialDTO(actualizado)).build();
     }
 
     @DELETE

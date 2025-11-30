@@ -1,131 +1,114 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.libreria.service;
 
-/**
- *
- * @author CESAR
- */
-
+import com.libreria.dao.MultaDAO;
+import com.libreria.dao.PrestamoDAO;
+import com.libreria.dao.UsuarioDAO;
 import com.libreria.model.Multa;
-import jakarta.persistence.*;
+import com.libreria.model.Prestamo;
+import com.libreria.model.Usuario;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import java.util.List;
 
 /**
  * Servicio para manejar operaciones CRUD de la entidad Multa.
  */
+@RequestScoped // Importante para la inyección (CDI)
 public class MultaService {
 
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("AppP");
+    @Inject
+    private MultaDAO multaDao;
+
+    // 🎯 Asumimos que tienes otros DAOs inyectados para las relaciones
+    @Inject
+    private UsuarioDAO usuarioDao;
+    @Inject
+    private PrestamoDAO prestamoDao;
 
     // --------------------------------------------------
     // OPERACIÓN: CREAR (INSERTAR)
     // --------------------------------------------------
-    public Multa create(Multa m) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.persist(m);
-            tx.commit();
-            return m;
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
+    public Multa create(Multa m, Integer usuarioId, Integer prestamoId) {
+        // 1. Obtener las entidades relacionadas (deben ser Managed Entities)
+        Usuario usuario = usuarioDao.find(usuarioId);
+        Prestamo prestamo = (prestamoId != null) ? prestamoDao.find(prestamoId) : null;
+
+        // **Lógica de validación:**
+        if (usuario == null) {
+            throw new RuntimeException("Usuario con ID " + usuarioId + " no encontrado.");
         }
+        if (prestamo == null && prestamoId != null) {
+            throw new RuntimeException("Préstamo con ID " + prestamoId + " no encontrado.");
+        }
+
+        // 2. Establecer relaciones en la entidad Multa
+        m.setUsuario(usuario);
+        m.setPrestamo(prestamo);
+
+        // 3. Persistir
+        return multaDao.create(m);
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ENCONTRAR POR ID (SELECT)
     // --------------------------------------------------
     public Multa find(Integer id) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.find(Multa.class, id);
-        } finally {
-            em.close();
-        }
+        return multaDao.find(id);
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ENCONTRAR TODOS (SELECT ALL)
     // --------------------------------------------------
     public List<Multa> findAll() {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.createQuery("SELECT m FROM Multa m", Multa.class).getResultList();
-        } finally {
-            em.close();
-        }
+        return multaDao.findAll();
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ACTUALIZAR (UPDATE)
     // --------------------------------------------------
-    public Multa update(Integer id, Multa cambios) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            Multa m = em.find(Multa.class, id);
+    public Multa update(Integer id, Multa cambios, Integer usuarioId, Integer prestamoId) {
 
-            if (m == null) {
-                tx.rollback();
-                return null;
-            }
-            
-            // Aplicar cambios:
-            m.setUsuario(cambios.getUsuario());
-            m.setPrestamo(cambios.getPrestamo());
-            m.setMonto(cambios.getMonto());
-            m.setMotivo(cambios.getMotivo());
-            m.setEstado(cambios.getEstado());
-            m.setFechaGeneracion(cambios.getFechaGeneracion());
-            m.setFechaPago(cambios.getFechaPago());
+        Multa m = multaDao.find(id);
 
-            em.merge(m);
-            tx.commit();
-            return m;
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
+        if (m == null) {
+            return null;
         }
+
+        // 1. Aplicar cambios a campos directos
+        m.setMonto(cambios.getMonto());
+        m.setMotivo(cambios.getMotivo());
+        m.setEstado(cambios.getEstado());
+        m.setFechaGeneracion(cambios.getFechaGeneracion());
+        m.setFechaPago(cambios.getFechaPago());
+
+        // 2. Actualizar la relación Usuario si el ID fue proporcionado
+        if (usuarioId != null && (m.getUsuario() == null || !m.getUsuario().getId().equals(usuarioId))) {
+            Usuario usuario = usuarioDao.find(usuarioId);
+            if (usuario == null) {
+                throw new RuntimeException("Usuario con ID " + usuarioId + " no encontrado para la actualización.");
+            }
+            m.setUsuario(usuario);
+        }
+
+        // 3. Actualizar la relación Prestamo si el ID fue proporcionado
+        if (prestamoId != null) {
+            Prestamo prestamo = prestamoDao.find(prestamoId);
+            if (prestamo == null) {
+                throw new RuntimeException("Préstamo con ID " + prestamoId + " no encontrado para la actualización.");
+            }
+            m.setPrestamo(prestamo);
+        } else if (prestamoId == null && m.getPrestamo() != null) {
+            m.setPrestamo(null); // Si envían null, desvincular
+        }
+
+        // 4. Persistir cambios usando el DAO
+        return multaDao.update(m);
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ELIMINAR (DELETE)
     // --------------------------------------------------
     public boolean delete(Integer id) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            Multa m = em.find(Multa.class, id);
-
-            if (m == null) {
-                tx.rollback();
-                return false;
-            }
-            em.remove(m);
-            tx.commit();
-            return true;
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
-        }
+        return multaDao.delete(id);
     }
 }
