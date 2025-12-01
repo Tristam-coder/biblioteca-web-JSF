@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+        <ui:define name="titulo">Editoriales</ui:define>
+
+        <ui:define name="contenido">
+            <div class="page-header">
+                <h1>Gestión de Editoriales</h1>
+                <p>Administración de editoriales</p>
+            </div>
+
+            <b:alert severity="info">
+                <strong>Módulo en desarrollo</strong><br/>
+                Este módulo permite gestionar las editoriales del sistema.
+                <ul>
+                    <li>Registrar editoriales</li>
+                    <li>Actualizar información de contacto</li>
+                    <li>Consultar catálogo por editorial</li>
+                </ul>
+            </b:alert>
+
+            <b:button value="Volver al Inicio" look="primary" icon="home" outcome="/index.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>
+

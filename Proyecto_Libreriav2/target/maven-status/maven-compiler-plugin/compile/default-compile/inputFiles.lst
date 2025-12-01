@@ -1,38 +1,67 @@
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Autor.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Editorial.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Ejemplar.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Historial.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Multa.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Notificacion.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Obra.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\ObraAutor.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Prestamo.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Reserva.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\TipoObra.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Usuario.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\proyecto_libreria\resources\JakartaEE11Resource.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\AutorResource.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\EditorialResource.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\EjemplarResource.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\HistorialResource.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\MultaResource.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\NotificacionResource.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\ObraAutorResource.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\ObraResource.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\PrestamoResource.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\ReservaResource.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\RestApplication.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\TipoObraResource.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\UsuarioResource.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\AutorService.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\EditorialService.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\EjemplarService.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\HistorialService.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\MultaService.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\NotificacionService.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\ObraAutorService.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\ObraService.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\PrestamoService.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\ReservaService.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\TipoObraService.java
-C:\Users\USER\Downloads\cesar\proyrcto_webI\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\UsuarioService.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\beans\ObraBean.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\beans\PrestamoBean.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\beans\UsuarioBean.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\client\RestClient.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dao\AutorDAO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dao\EditorialDAO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dao\EjemplarDAO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dao\HistorialDAO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dao\MultaDAO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dao\NotificacionDAO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dao\ObraAutorDAO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dao\ObraDAO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dao\PrestamoDAO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dao\ReservaDAO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dao\TipoObraDAO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dao\UsuarioDAO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dto\AutorDTO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dto\EditorialDTO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dto\EjemplarDTO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dto\HistorialDTO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dto\MultaDTO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dto\NotificacionDTO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dto\ObraAutorDTO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dto\ObraDTO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dto\PrestamoDTO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dto\ReservaDTO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dto\TipoObraDTO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\dto\UsuarioDTO.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Autor.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Editorial.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Ejemplar.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Historial.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Multa.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Notificacion.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Obra.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\ObraAutor.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Prestamo.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Reserva.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\TipoObra.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\model\Usuario.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\proyecto_libreria\resources\JakartaEE11Resource.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\AutorResource.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\EditorialResource.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\EjemplarResource.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\HistorialResource.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\MultaResource.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\NotificacionResource.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\ObraAutorResource.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\ObraResource.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\PrestamoResource.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\ReservaResource.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\RestApplication.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\TipoObraResource.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\rs\UsuarioResource.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\AutorService.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\EditorialService.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\EjemplarService.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\HistorialService.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\MultaService.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\NotificacionService.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\ObraAutorService.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\ObraService.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\PrestamoService.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\ReservaService.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\TipoObraService.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\service\UsuarioService.java
+D:\Desarrollo WEB\biblioteca-web-JSF\Proyecto_Libreriav2\src\main\java\com\libreria\util\converter\LocalDateConverter.java

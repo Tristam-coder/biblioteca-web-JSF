@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+        <ui:define name="titulo">Gestión de Usuarios</ui:define>
+
+        <ui:define name="contenido">
+            <div class="page-header">
+                <h1>Gestión de Usuarios</h1>
+                <p>Administración de usuarios del sistema</p>
+            </div>
+
+            <h:form id="formUsuarios">
+                <!-- Toolbar -->
+                <b:row>
+                    <b:column col-md="8">
+                        <b:inputText value="#{usuarioBean.filtro}"
+                                     placeholder="Buscar por nombre, email o DNI..."
+                                     fieldSize="lg">
+                            <f:ajax event="keyup" render="tablaUsuarios" />
+                        </b:inputText>
+                    </b:column>
+                    <b:column col-md="4" style="text-align: right;">
+                        <b:button value="Nuevo Usuario" look="primary" icon="plus"
+                                  onclick="$('#modalUsuario').modal('show');"
+                                  action="#{usuarioBean.nuevoUsuario()}">
+                            <f:ajax render="formModal" />
+                        </b:button>
+                        <b:button value="Actualizar" look="info" icon="refresh"
+                                  action="#{usuarioBean.cargarUsuarios()}">
+                            <f:ajax render="tablaUsuarios" />
+                        </b:button>
+                    </b:column>
+                </b:row>
+
+                <hr/>
+
+                <!-- Tabla de Usuarios -->
+                <b:dataTable id="tablaUsuarios"
+                             value="#{usuarioBean.usuariosFiltrados}"
+                             var="usuario"
+                             striped="true"
+                             hover="true"
+                             responsive="true"
+                             page-length="10"
+                             page-length-menu="[5,10,25,50]"
+                             searching="false">
+
+                    <b:dataTableColumn label="ID" value="#{usuario.id}" width="50"/>
+
+                    <b:dataTableColumn label="DNI" value="#{usuario.dni}"/>
+
+                    <b:dataTableColumn label="Nombre Completo">
+                        <strong>#{usuario.nombre} #{usuario.apellido}</strong>
+                    </b:dataTableColumn>
+
+                    <b:dataTableColumn label="Email" value="#{usuario.email}"/>
+
+                    <b:dataTableColumn label="Teléfono" value="#{usuario.telefono}"/>
+
+                    <b:dataTableColumn label="Tipo">
+                        <b:badge value="#{usuario.tipoUsuario}"
+                                 severity="#{usuario.tipoUsuario == 'ADMIN' ? 'danger' : 'info'}"/>
+                    </b:dataTableColumn>
+
+                    <b:dataTableColumn label="Estado">
+                        <span class="badge-status #{usuario.estado == 'ACTIVO' ? 'badge-activo' : 'badge-inactivo'}">
+                            #{usuario.estado}
+                        </span>
+                    </b:dataTableColumn>
+
+                    <b:dataTableColumn label="Acciones" width="150">
+                        <b:button look="warning" icon="edit" size="sm" tooltip="Editar"
+                                  onclick="$('#modalUsuario').modal('show');"
+                                  action="#{usuarioBean.editarUsuario(usuario)}">
+                            <f:ajax render="formModal" />
+                        </b:button>
+                        <b:button look="danger" icon="trash" size="sm" tooltip="Eliminar"
+                                  onclick="return confirm('¿Está seguro de eliminar este usuario?');"
+                                  action="#{usuarioBean.eliminarUsuario(usuario.id)}">
+                            <f:ajax render="tablaUsuarios" execute="@this"/>
+                        </b:button>
+                    </b:dataTableColumn>
+                </b:dataTable>
+            </h:form>
+
+            <!-- Modal para Crear/Editar Usuario -->
+            <b:modal id="modalUsuario" title="#{usuarioBean.usuario.id == null ? 'Nuevo Usuario' : 'Editar Usuario'}"
+                     size="modal-lg">
+                <h:form id="formModal">
+                    <b:row>
+                        <b:column col-md="6">
+                            <b:inputText label="DNI *" value="#{usuarioBean.usuario.dni}"
+                                         required="true" requiredMessage="DNI es obligatorio"
+                                         placeholder="12345678A"/>
+                        </b:column>
+                        <b:column col-md="6">
+                            <b:inputText label="Email *" value="#{usuarioBean.usuario.email}"
+                                         required="true" requiredMessage="Email es obligatorio"
+                                         type="email" placeholder="usuario@ejemplo.com"/>
+                        </b:column>
+                    </b:row>
+
+                    <b:row>
+                        <b:column col-md="6">
+                            <b:inputText label="Nombre *" value="#{usuarioBean.usuario.nombre}"
+                                         required="true" requiredMessage="Nombre es obligatorio"
+                                         placeholder="Juan"/>
+                        </b:column>
+                        <b:column col-md="6">
+                            <b:inputText label="Apellido *" value="#{usuarioBean.usuario.apellido}"
+                                         required="true" requiredMessage="Apellido es obligatorio"
+                                         placeholder="Pérez"/>
+                        </b:column>
+                    </b:row>
+
+                    <b:row>
+                        <b:column col-md="6">
+                            <b:inputText label="Teléfono" value="#{usuarioBean.usuario.telefono}"
+                                         placeholder="612345678"/>
+                        </b:column>
+                        <b:column col-md="6">
+                            <b:selectOneMenu label="Tipo de Usuario *" value="#{usuarioBean.usuario.tipoUsuario}">
+                                <f:selectItem itemValue="SOCIO" itemLabel="Socio"/>
+                                <f:selectItem itemValue="BIBLIOTECARIO" itemLabel="Bibliotecario"/>
+                                <f:selectItem itemValue="ADMIN" itemLabel="Administrador"/>
+                            </b:selectOneMenu>
+                        </b:column>
+                    </b:row>
+
+                    <b:row>
+                        <b:column col-md="12">
+                            <b:inputTextarea label="Dirección" value="#{usuarioBean.usuario.direccion}"
+                                             rows="3" placeholder="Calle Principal 123, Madrid"/>
+                        </b:column>
+                    </b:row>
+
+                    <b:row>
+                        <b:column col-md="6">
+                            <b:selectOneMenu label="Estado *" value="#{usuarioBean.usuario.estado}">
+                                <f:selectItem itemValue="ACTIVO" itemLabel="Activo"/>
+                                <f:selectItem itemValue="INACTIVO" itemLabel="Inactivo"/>
+                                <f:selectItem itemValue="SUSPENDIDO" itemLabel="Suspendido"/>
+                            </b:selectOneMenu>
+                        </b:column>
+                    </b:row>
+
+                    <f:facet name="footer">
+                        <b:button value="Cancelar" look="default" dismiss="modal"/>
+                        <b:button value="Guardar" look="primary" icon="save"
+                                  action="#{usuarioBean.guardarUsuario()}"
+                                  onclick="$('#modalUsuario').modal('hide');">
+                            <f:ajax render="formUsuarios:tablaUsuarios" execute="@form"/>
+                        </b:button>
+                    </f:facet>
+                </h:form>
+            </b:modal>
+        </ui:define>
+
+        <ui:define name="scripts">
+            <script>
+                // jQuery para manejar el modal
+                $(document).ready(function() {
+                    // Auto-cerrar modal después de guardar
+                    window.cerrarModal = function() {
+                        $('#modalUsuario').modal('hide');
+                    };
+                });
+            </script>
+        </ui:define>
+    </ui:composition>
+</html>
+

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <h:head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title><ui:insert name="titulo">Sistema de Biblioteca</ui:insert></title>
+
+        <!-- BootFaces CSS y JS -->
+        <h:outputStylesheet library="bsf" name="css/bootstrap.min.css"/>
+        <h:outputStylesheet library="bsf" name="css/bootsfaces.min.css"/>
+
+        <!-- Custom CSS -->
+        <style>
+            body {
+                padding-top: 70px;
+                background-color: #f8f9fa;
+            }
+
+            .navbar-brand {
+                font-weight: bold;
+                font-size: 1.5rem;
+            }
+
+            .content-wrapper {
+                padding: 20px;
+                background-color: white;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                margin-bottom: 20px;
+            }
+
+            .page-header {
+                margin-bottom: 30px;
+                padding-bottom: 10px;
+                border-bottom: 2px solid #007bff;
+            }
+
+            .page-header h1 {
+                color: #007bff;
+                font-size: 2rem;
+                margin: 0;
+            }
+
+            .btn-toolbar {
+                margin-bottom: 20px;
+            }
+
+            .footer {
+                margin-top: 50px;
+                padding: 20px 0;
+                background-color: #343a40;
+                color: white;
+                text-align: center;
+            }
+
+            .table-responsive {
+                margin-top: 20px;
+            }
+
+            .badge-status {
+                padding: 5px 10px;
+                border-radius: 4px;
+                font-size: 0.9rem;
+            }
+
+            .badge-activo {
+                background-color: #28a745;
+                color: white;
+            }
+
+            .badge-inactivo {
+                background-color: #dc3545;
+                color: white;
+            }
+
+            .badge-disponible {
+                background-color: #17a2b8;
+                color: white;
+            }
+
+            .badge-prestado {
+                background-color: #ffc107;
+                color: black;
+            }
+        </style>
+
+        <ui:insert name="css"/>
+    </h:head>
+
+    <h:body>
+        <!-- Navbar -->
+        <b:navBar brand="Sistema de Biblioteca" brandHref="#{request.contextPath}/index.xhtml"
+                  fixed="top" inverse="true">
+            <b:navbarLinks>
+                <b:navLink value="Inicio" href="#{request.contextPath}/index.xhtml" icon="home"/>
+                <b:dropMenu value="Gestión">
+                    <b:navLink value="Usuarios" href="#{request.contextPath}/pages/usuarios.xhtml" icon="user"/>
+                    <b:navLink value="Obras" href="#{request.contextPath}/pages/obras.xhtml" icon="book"/>
+                    <b:navLink value="Autores" href="#{request.contextPath}/pages/autores.xhtml" icon="pencil"/>
+                    <b:navLink value="Editoriales" href="#{request.contextPath}/pages/editoriales.xhtml" icon="home"/>
+                    <b:navLink/>
+                    <b:navLink value="Ejemplares" href="#{request.contextPath}/pages/ejemplares.xhtml" icon="barcode"/>
+                </b:dropMenu>
+                <b:dropMenu value="Operaciones">
+                    <b:navLink value="Préstamos" href="#{request.contextPath}/pages/prestamos.xhtml" icon="refresh"/>
+                    <b:navLink value="Reservas" href="#{request.contextPath}/pages/reservas.xhtml" icon="time"/>
+                    <b:navLink value="Multas" href="#{request.contextPath}/pages/multas.xhtml" icon="usd"/>
+                </b:dropMenu>
+                <b:dropMenu value="Consultas">
+                    <b:navLink value="Historial" href="#{request.contextPath}/pages/historial.xhtml" icon="list"/>
+                    <b:navLink value="Notificaciones" href="#{request.contextPath}/pages/notificaciones.xhtml" icon="bell"/>
+                </b:dropMenu>
+            </b:navbarLinks>
+
+            <b:navbarLinks pull="right">
+                <b:navLink value="API REST" href="#{request.contextPath}/api" icon="cloud" target="_blank"/>
+            </b:navbarLinks>
+        </b:navBar>
+
+        <!-- Mensajes Globales -->
+        <div class="container">
+            <b:messages id="mensajes" globalOnly="true" showDetail="true" showSummary="true"/>
+        </div>
+
+        <!-- Contenido Principal -->
+        <div class="container">
+            <div class="content-wrapper">
+                <ui:insert name="contenido">
+                    <p>Contenido por defecto</p>
+                </ui:insert>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="container">
+                <p>© 2024 Sistema de Biblioteca - Desarrollado con Jakarta EE 10, JSF y BootFaces</p>
+            </div>
+        </div>
+
+        <!-- Scripts -->
+        <h:outputScript library="bsf" name="js/jquery.min.js"/>
+        <h:outputScript library="bsf" name="js/bootstrap.min.js"/>
+        <h:outputScript library="bsf" name="js/bootsfaces.js"/>
+        <h:outputScript library="js" name="biblioteca.js"/>
+
+        <ui:insert name="scripts"/>
+    </h:body>
+</html>
+

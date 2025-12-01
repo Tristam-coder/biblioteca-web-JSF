@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+        <ui:define name="titulo">Ejemplares</ui:define>
+
+        <ui:define name="contenido">
+            <div class="page-header">
+                <h1>Gestión de Ejemplares</h1>
+                <p>Administración de copias físicas de obras</p>
+            </div>
+
+            <b:alert severity="info">
+                <strong>Módulo en desarrollo</strong><br/>
+                Este módulo permite gestionar los ejemplares (copias físicas) de las obras.
+                <ul>
+                    <li>Registrar nuevos ejemplares</li>
+                    <li>Asignar ubicación en biblioteca</li>
+                    <li>Controlar estado (disponible, prestado, mantenimiento)</li>
+                    <li>Gestionar código de barras</li>
+                </ul>
+            </b:alert>
+
+            <b:button value="Volver al Inicio" look="primary" icon="home" outcome="/index.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>
+

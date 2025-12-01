@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+        <ui:define name="titulo">Gestión de Obras</ui:define>
+
+        <ui:define name="contenido">
+            <div class="page-header">
+                <h1>Catálogo de Obras</h1>
+                <p>Gestión del catálogo bibliográfico</p>
+            </div>
+
+            <h:form id="formObras">
+                <!-- Toolbar -->
+                <b:row>
+                    <b:column col-md="8">
+                        <b:inputText value="#{obraBean.filtro}"
+                                     placeholder="Buscar por título o ISBN..."
+                                     fieldSize="lg">
+                            <f:ajax event="keyup" render="tablaObras" />
+                        </b:inputText>
+                    </b:column>
+                    <b:column col-md="4" style="text-align: right;">
+                        <b:button value="Nueva Obra" look="primary" icon="plus"
+                                  onclick="$('#modalObra').modal('show');"
+                                  action="#{obraBean.nuevaObra()}">
+                            <f:ajax render="formModal" />
+                        </b:button>
+                        <b:button value="Actualizar" look="info" icon="refresh"
+                                  action="#{obraBean.cargarObras()}">
+                            <f:ajax render="tablaObras" />
+                        </b:button>
+                    </b:column>
+                </b:row>
+
+                <hr/>
+
+                <!-- Tabla de Obras -->
+                <b:dataTable id="tablaObras"
+                             value="#{obraBean.obrasFiltradas}"
+                             var="obra"
+                             striped="true"
+                             hover="true"
+                             responsive="true"
+                             page-length="10"
+                             page-length-menu="[5,10,25,50]"
+                             searching="false">
+
+                    <b:dataTableColumn label="ID" value="#{obra.id}" width="50"/>
+
+                    <b:dataTableColumn label="Título">
+                        <strong>#{obra.titulo}</strong>
+                    </b:dataTableColumn>
+
+                    <b:dataTableColumn label="ISBN/ISSN" value="#{obra.isbnIssn}"/>
+
+                    <b:dataTableColumn label="Tipo">
+                        #{obraBean.getTipoObraNombre(obra.tipoObraId)}
+                    </b:dataTableColumn>
+
+                    <b:dataTableColumn label="Editorial">
+                        #{obraBean.getEditorialNombre(obra.editorialId)}
+                    </b:dataTableColumn>
+
+                    <b:dataTableColumn label="Año" value="#{obra.anioPublicacion}" width="80"/>
+
+                    <b:dataTableColumn label="Estado">
+                        <span class="badge-status #{obra.estado == 'DISPONIBLE' ? 'badge-disponible' : 'badge-prestado'}">
+                            #{obra.estado}
+                        </span>
+                    </b:dataTableColumn>
+
+                    <b:dataTableColumn label="Acciones" width="150">
+                        <b:button look="warning" icon="edit" size="sm" tooltip="Editar"
+                                  onclick="$('#modalObra').modal('show');"
+                                  action="#{obraBean.editarObra(obra)}">
+                            <f:ajax render="formModal" />
+                        </b:button>
+                        <b:button look="danger" icon="trash" size="sm" tooltip="Eliminar"
+                                  onclick="return confirm('¿Está seguro de eliminar esta obra?');"
+                                  action="#{obraBean.eliminarObra(obra.id)}">
+                            <f:ajax render="tablaObras" execute="@this"/>
+                        </b:button>
+                    </b:dataTableColumn>
+                </b:dataTable>
+            </h:form>
+
+            <!-- Modal para Crear/Editar Obra -->
+            <b:modal id="modalObra" title="#{obraBean.obra.id == null ? 'Nueva Obra' : 'Editar Obra'}"
+                     size="modal-lg">
+                <h:form id="formModal">
+                    <b:row>
+                        <b:column col-md="8">
+                            <b:inputText label="Título *" value="#{obraBean.obra.titulo}"
+                                         required="true" requiredMessage="Título es obligatorio"
+                                         placeholder="El Quijote de la Mancha"/>
+                        </b:column>
+                        <b:column col-md="4">
+                            <b:inputText label="ISBN/ISSN" value="#{obraBean.obra.isbnIssn}"
+                                         placeholder="978-84-376-0494-7"/>
+                        </b:column>
+                    </b:row>
+
+                    <b:row>
+                        <b:column col-md="6">
+                            <b:selectOneMenu label="Tipo de Obra *" value="#{obraBean.obra.tipoObraId}" required="true">
+                                <f:selectItem itemLabel="Seleccione..." noSelectionOption="true"/>
+                                <f:selectItems value="#{obraBean.tiposObra}" var="tipo"
+                                               itemValue="#{tipo.id}" itemLabel="#{tipo.nombre}"/>
+                            </b:selectOneMenu>
+                        </b:column>
+                        <b:column col-md="6">
+                            <b:selectOneMenu label="Editorial *" value="#{obraBean.obra.editorialId}" required="true">
+                                <f:selectItem itemLabel="Seleccione..." noSelectionOption="true"/>
+                                <f:selectItems value="#{obraBean.editoriales}" var="editorial"
+                                               itemValue="#{editorial.id}" itemLabel="#{editorial.nombre}"/>
+                            </b:selectOneMenu>
+                        </b:column>
+                    </b:row>
+
+                    <b:row>
+                        <b:column col-md="4">
+                            <b:inputText label="Año Publicación" value="#{obraBean.obra.anioPublicacion}"
+                                         type="number" placeholder="2024"/>
+                        </b:column>
+                        <b:column col-md="4">
+                            <b:inputText label="Edición" value="#{obraBean.obra.edicion}"
+                                         type="number" placeholder="1"/>
+                        </b:column>
+                        <b:column col-md="4">
+                            <b:inputText label="Nº Páginas" value="#{obraBean.obra.numeroPaginas}"
+                                         type="number" placeholder="350"/>
+                        </b:column>
+                    </b:row>
+
+                    <b:row>
+                        <b:column col-md="4">
+                            <b:inputText label="Idioma" value="#{obraBean.obra.idioma}"
+                                         placeholder="Español"/>
+                        </b:column>
+                        <b:column col-md="4">
+                            <b:inputText label="Área Temática" value="#{obraBean.obra.areaTematica}"
+                                         placeholder="Literatura"/>
+                        </b:column>
+                        <b:column col-md="4">
+                            <b:selectOneMenu label="Nivel" value="#{obraBean.obra.nivel}">
+                                <f:selectItem itemValue="" itemLabel="Seleccione..."/>
+                                <f:selectItem itemValue="Infantil" itemLabel="Infantil"/>
+                                <f:selectItem itemValue="Juvenil" itemLabel="Juvenil"/>
+                                <f:selectItem itemValue="Adulto" itemLabel="Adulto"/>
+                                <f:selectItem itemValue="Académico" itemLabel="Académico"/>
+                            </b:selectOneMenu>
+                        </b:column>
+                    </b:row>
+
+                    <b:row>
+                        <b:column col-md="12">
+                            <b:inputTextarea label="Descripción" value="#{obraBean.obra.descripcion}"
+                                             rows="3" placeholder="Descripción de la obra..."/>
+                        </b:column>
+                    </b:row>
+
+                    <b:row>
+                        <b:column col-md="6">
+                            <b:selectOneMenu label="Estado *" value="#{obraBean.obra.estado}">
+                                <f:selectItem itemValue="DISPONIBLE" itemLabel="Disponible"/>
+                                <f:selectItem itemValue="PRESTADO" itemLabel="Prestado"/>
+                                <f:selectItem itemValue="RESERVADO" itemLabel="Reservado"/>
+                                <f:selectItem itemValue="MANTENIMIENTO" itemLabel="Mantenimiento"/>
+                            </b:selectOneMenu>
+                        </b:column>
+                    </b:row>
+
+                    <f:facet name="footer">
+                        <b:button value="Cancelar" look="default" dismiss="modal"/>
+                        <b:button value="Guardar" look="primary" icon="save"
+                                  action="#{obraBean.guardarObra()}"
+                                  onclick="$('#modalObra').modal('hide');">
+                            <f:ajax render="formObras:tablaObras" execute="@form"/>
+                        </b:button>
+                    </f:facet>
+                </h:form>
+            </b:modal>
+        </ui:define>
+    </ui:composition>
+</html>
+

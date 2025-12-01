@@ -42,7 +42,7 @@
       <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/Libreria"/>
       <property name="jakarta.persistence.jdbc.user" value="postgres"/> <!-- Cambiar según configuración local de postgresql -->
-      <property name="jakarta.persistence.jdbc.password" value="cesar"/> <!-- Cambiar según configuración local de postgresql -->
+      <property name="jakarta.persistence.jdbc.password" value="Abc1234"/> <!-- Cambiar según configuración local de postgresql -->
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
       <property name="hibernate.hbm2ddl.auto" value="update"/>
       <property name="hibernate.show_sql" value="true"/>

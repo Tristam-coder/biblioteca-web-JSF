@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+        <ui:define name="titulo">Reservas</ui:define>
+
+        <ui:define name="contenido">
+            <div class="page-header">
+                <h1>Gestión de Reservas</h1>
+                <p>Control de reservas de obras</p>
+            </div>
+
+            <b:alert severity="info">
+                <strong>Módulo en desarrollo</strong><br/>
+                Este módulo permite gestionar las reservas de obras que están prestadas.
+                <ul>
+                    <li>Crear reservas</li>
+                    <li>Notificar disponibilidad</li>
+                    <li>Gestionar cola de espera</li>
+                    <li>Control de expiración de reservas</li>
+                </ul>
+            </b:alert>
+
+            <b:button value="Volver al Inicio" look="primary" icon="home" outcome="/index.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>
+

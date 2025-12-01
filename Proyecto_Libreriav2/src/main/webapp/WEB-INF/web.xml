@@ -4,6 +4,56 @@
    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
    version="6.0">
 
+    <!-- Configuración de JSF (Jakarta Faces) -->
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+
+    <!-- Páginas de bienvenida -->
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+    <!-- Parámetros de contexto para JSF -->
+    <context-param>
+        <param-name>jakarta.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>jakarta.faces.FACELETS_REFRESH_PERIOD</param-name>
+        <param-value>0</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>jakarta.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>server</param-value>
+    </context-param>
+
+    <!-- Habilitar recursos de BootFaces -->
+    <context-param>
+        <param-name>net.bootsfaces.get_bootstrap_from_cdn</param-name>
+        <param-value>false</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>net.bootsfaces.get_jquery_from_cdn</param-name>
+        <param-value>false</param-value>
+    </context-param>
+
+    <!-- Habilitar PrimeFaces AJAX -->
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>saga</param-value>
+    </context-param>
 
     <session-config>
         <session-timeout>

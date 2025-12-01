@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+        <ui:define name="titulo">Gestión de Préstamos</ui:define>
+
+        <ui:define name="contenido">
+            <div class="page-header">
+                <h1>Gestión de Préstamos</h1>
+                <p>Control de préstamos y devoluciones</p>
+            </div>
+
+            <!-- Estadísticas -->
+            <b:row style="margin-bottom: 20px;">
+                <b:column col-md="4">
+                    <b:panel look="success">
+                        <h3>#{prestamoBean.prestamosActivos.size()}</h3>
+                        <p>Préstamos Activos</p>
+                    </b:panel>
+                </b:column>
+                <b:column col-md="4">
+                    <b:panel look="info">
+                        <h3>#{prestamoBean.prestamos.size()}</h3>
+                        <p>Total Préstamos</p>
+                    </b:panel>
+                </b:column>
+                <b:column col-md="4">
+                    <b:panel look="warning">
+                        <h3>0</h3>
+                        <p>Préstamos Vencidos</p>
+                    </b:panel>
+                </b:column>
+            </b:row>
+
+            <h:form id="formPrestamos">
+                <!-- Toolbar -->
+                <b:row>
+                    <b:column col-md="8">
+                        <b:inputText value="#{prestamoBean.filtro}"
+                                     placeholder="Buscar por usuario o estado..."
+                                     fieldSize="lg">
+                            <f:ajax event="keyup" render="tablaPrestamos" />
+                        </b:inputText>
+                    </b:column>
+                    <b:column col-md="4" style="text-align: right;">
+                        <b:button value="Nuevo Préstamo" look="primary" icon="plus"
+                                  onclick="$('#modalPrestamo').modal('show');"
+                                  action="#{prestamoBean.nuevoPrestamo()}">
+                            <f:ajax render="formModal" />
+                        </b:button>
+                        <b:button value="Actualizar" look="info" icon="refresh"
+                                  action="#{prestamoBean.cargarPrestamos()}">
+                            <f:ajax render="tablaPrestamos" />
+                        </b:button>
+                    </b:column>
+                </b:row>
+
+                <hr/>
+
+                <!-- Tabla de Préstamos -->
+                <b:dataTable id="tablaPrestamos"
+                             value="#{prestamoBean.prestamosFiltrados}"
+                             var="prestamo"
+                             striped="true"
+                             hover="true"
+                             responsive="true"
+                             page-length="10"
+                             page-length-menu="[5,10,25,50]"
+                             searching="false">
+
+                    <b:dataTableColumn label="ID" value="#{prestamo.id}" width="50"/>
+
+                    <b:dataTableColumn label="Usuario">
+                        <strong>#{prestamo.usuarioNombre}</strong>
+                    </b:dataTableColumn>
+
+                    <b:dataTableColumn label="Ejemplar" value="#{prestamo.ejemplarCodigo}"/>
+
+                    <b:dataTableColumn label="Fecha Préstamo">
+                        <h:outputText value="#{prestamo.fechaPrestamo}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                    </b:dataTableColumn>
+
+                    <b:dataTableColumn label="Devolución Prevista">
+                        <h:outputText value="#{prestamo.fechaDevolucionPrevista}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                    </b:dataTableColumn>
+
+                    <b:dataTableColumn label="Devolución Real">
+                        <h:outputText value="#{prestamo.fechaDevolucionReal}" rendered="#{prestamo.fechaDevolucionReal != null}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                        <span rendered="#{prestamo.fechaDevolucionReal == null}">-</span>
+                    </b:dataTableColumn>
+
+                    <b:dataTableColumn label="Estado">
+                        <b:badge value="#{prestamo.estado}"
+                                 severity="#{prestamo.estado == 'ACTIVO' ? 'success' : prestamo.estado == 'DEVUELTO' ? 'info' : 'danger'}"/>
+                    </b:dataTableColumn>
+
+                    <b:dataTableColumn label="Multa">
+                        <h:outputText value="#{prestamo.multa}" rendered="#{prestamo.multa > 0}">
+                            <f:convertNumber type="currency" currencySymbol="€"/>
+                        </h:outputText>
+                        <span rendered="#{prestamo.multa == 0}">-</span>
+                    </b:dataTableColumn>
+
+                    <b:dataTableColumn label="Acciones" width="200">
+                        <b:button look="success" icon="ok" size="sm" tooltip="Devolver"
+                                  rendered="#{prestamo.estado == 'ACTIVO'}"
+                                  onclick="return confirm('¿Confirmar devolución?');"
+                                  action="#{prestamoBean.devolverPrestamo(prestamo)}">
+                            <f:ajax render="tablaPrestamos" execute="@this"/>
+                        </b:button>
+                        <b:button look="warning" icon="edit" size="sm" tooltip="Editar"
+                                  onclick="$('#modalPrestamo').modal('show');"
+                                  action="#{prestamoBean.editarPrestamo(prestamo)}">
+                            <f:ajax render="formModal" />
+                        </b:button>
+                        <b:button look="danger" icon="trash" size="sm" tooltip="Eliminar"
+                                  onclick="return confirm('¿Está seguro de eliminar este préstamo?');"
+                                  action="#{prestamoBean.eliminarPrestamo(prestamo.id)}">
+                            <f:ajax render="tablaPrestamos" execute="@this"/>
+                        </b:button>
+                    </b:dataTableColumn>
+                </b:dataTable>
+            </h:form>
+
+            <!-- Modal para Crear/Editar Préstamo -->
+            <b:modal id="modalPrestamo" title="#{prestamoBean.prestamo.id == null ? 'Nuevo Préstamo' : 'Editar Préstamo'}"
+                     size="modal-lg">
+                <h:form id="formModal">
+                    <b:row>
+                        <b:column col-md="6">
+                            <b:selectOneMenu label="Usuario *" value="#{prestamoBean.prestamo.usuarioId}" required="true">
+                                <f:selectItem itemLabel="Seleccione un usuario..." noSelectionOption="true"/>
+                                <f:selectItems value="#{prestamoBean.usuarios}" var="usuario"
+                                               itemValue="#{usuario.id}"
+                                               itemLabel="#{usuario.nombre} #{usuario.apellido} (#{usuario.dni})"/>
+                            </b:selectOneMenu>
+                        </b:column>
+                        <b:column col-md="6">
+                            <b:selectOneMenu label="Ejemplar *" value="#{prestamoBean.prestamo.ejemplarId}" required="true">
+                                <f:selectItem itemLabel="Seleccione un ejemplar..." noSelectionOption="true"/>
+                                <f:selectItems value="#{prestamoBean.ejemplares}" var="ejemplar"
+                                               itemValue="#{ejemplar.id}"
+                                               itemLabel="#{ejemplar.codigoEjemplar} - #{ejemplar.obraTitulo}"/>
+                            </b:selectOneMenu>
+                        </b:column>
+                    </b:row>
+
+                    <b:row>
+                        <b:column col-md="6">
+                            <b:dateTimePicker label="Fecha Préstamo *" value="#{prestamoBean.prestamo.fechaPrestamo}"
+                                              required="true" format="dd/MM/yyyy" mode="popup-icon"/>
+                        </b:column>
+                        <b:column col-md="6">
+                            <b:dateTimePicker label="Devolución Prevista *" value="#{prestamoBean.prestamo.fechaDevolucionPrevista}"
+                                              required="true" format="dd/MM/yyyy" mode="popup-icon"/>
+                        </b:column>
+                    </b:row>
+
+                    <b:row rendered="#{prestamoBean.prestamo.id != null}">
+                        <b:column col-md="6">
+                            <b:dateTimePicker label="Devolución Real" value="#{prestamoBean.prestamo.fechaDevolucionReal}"
+                                              format="dd/MM/yyyy" mode="popup-icon"/>
+                        </b:column>
+                        <b:column col-md="6">
+                            <b:selectOneMenu label="Estado *" value="#{prestamoBean.prestamo.estado}">
+                                <f:selectItem itemValue="ACTIVO" itemLabel="Activo"/>
+                                <f:selectItem itemValue="DEVUELTO" itemLabel="Devuelto"/>
+                                <f:selectItem itemValue="RETRASADO" itemLabel="Retrasado"/>
+                            </b:selectOneMenu>
+                        </b:column>
+                    </b:row>
+
+                    <b:row>
+                        <b:column col-md="12">
+                            <b:inputTextarea label="Observaciones" value="#{prestamoBean.prestamo.observaciones}"
+                                             rows="3" placeholder="Notas adicionales..."/>
+                        </b:column>
+                    </b:row>
+
+                    <f:facet name="footer">
+                        <b:button value="Cancelar" look="default" dismiss="modal"/>
+                        <b:button value="Guardar" look="primary" icon="save"
+                                  action="#{prestamoBean.guardarPrestamo()}"
+                                  onclick="$('#modalPrestamo').modal('hide');">
+                            <f:ajax render="formPrestamos:tablaPrestamos" execute="@form"/>
+                        </b:button>
+                    </f:facet>
+                </h:form>
+            </b:modal>
+        </ui:define>
+    </ui:composition>
+</html>
+

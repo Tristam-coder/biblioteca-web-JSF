@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+        <ui:define name="titulo">Multas</ui:define>
+
+        <ui:define name="contenido">
+            <div class="page-header">
+                <h1>Gestión de Multas</h1>
+                <p>Administración de multas por retrasos</p>
+            </div>
+
+            <b:alert severity="info">
+                <strong>Módulo en desarrollo</strong><br/>
+                Este módulo permite gestionar las multas generadas por retrasos en devoluciones.
+                <ul>
+                    <li>Registro automático de multas</li>
+                    <li>Cálculo basado en días de retraso</li>
+                    <li>Procesamiento de pagos</li>
+                    <li>Historial de multas por usuario</li>
+                </ul>
+            </b:alert>
+
+            <b:button value="Volver al Inicio" look="primary" icon="home" outcome="/index.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>
+
