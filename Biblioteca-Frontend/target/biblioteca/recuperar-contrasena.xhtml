@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:b="http://bootsfaces.net/ui"
+                template="/template.xhtml">
+
+    <ui:define name="title">Recuperar Contraseña - Ediciones Saberum</ui:define>
+
+    <ui:define name="content">
+        <div class="container py-4">
+            <b:row styleClass="justify-content-center">
+                <b:column col-lg="5" col-md="7">
+                    
+                    <h:panelGroup rendered="#{param.recuperacion eq 'enviada'}">
+                        <b:alert look="success" show="true" styleClass="mb-4">
+                            <strong>✅ Instrucciones enviadas:</strong> Hemos enviado las instrucciones de recuperación a tu correo electrónico.
+                        </b:alert>
+                    </h:panelGroup>
+
+                    <b:panel title="Restablecer Contraseña" look="warning">
+                        <p class="mb-4">Ingrese su correo electrónico para recibir instrucciones de restablecimiento.</p>
+                        <h:form id="recoveryForm">
+                            <b:inputText label="Correo Electrónico" 
+                                       value="#{recoveryController.email}"
+                                       required="true" 
+                                       type="email"
+                                       styleClass="mb-4"/>
+                            
+                            <b:commandButton value="Enviar Instrucciones" 
+                                             look="warning" 
+                                             action="#{recoveryController.enviarInstrucciones}"
+                                             styleClass="w-100 mb-3"/>
+                            
+                            <div class="text-center">
+                                <b:link value="← Volver a Iniciar Sesión" 
+                                        outcome="/login.xhtml"/>
+                            </div>
+                        </h:form>
+                    </b:panel>
+
+                    <div class="text-center mt-3">
+                        <p class="text-muted small">
+                            ¿No recibiste el correo? Verifica tu carpeta de spam o 
+                            <b:link value="contáctanos" outcome="/contacto.xhtml"/> 
+                            para obtener ayuda.
+                        </p>
+                    </div>
+                </b:column>
+            </b:row>
+        </div>
+    </ui:define>
+</ui:composition>

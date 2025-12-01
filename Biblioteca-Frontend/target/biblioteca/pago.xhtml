@@ -1,0 +1,182 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/template.xhtml">
+
+    <ui:define name="title">Procesar Pago - Ediciones Saberum</ui:define>
+
+    <ui:define name="content">
+        <div class="container py-4">
+            <div class="breadcrumb mb-4">
+                <b:link value="Inicio" outcome="/index.xhtml"/>
+                <span class="mx-2 text-muted">/</span>
+                <b:link value="Panel Usuario" outcome="/panel-usuario.xhtml"/>
+                <span class="mx-2 text-muted">/</span>
+                <span class="text-primary">Procesar Pago</span>
+            </div>
+            
+            <b:row styleClass="justify-content-center">
+                <b:column col-lg="8">
+                    <h1 class="mb-4">Procesar Pago</h1>
+                    
+                    <!-- Mostrar mensaje si viene de pago exitoso -->
+                    <h:panelGroup rendered="#{param.pago eq 'exitoso'}">
+                        <b:alert look="success" show="true" styleClass="mb-4">
+                            <strong>✅ Pago exitoso:</strong> Tu pago ha sido procesado correctamente.
+                        </b:alert>
+                    </h:panelGroup>
+                    
+                    <b:panel title="Detalle del Cargo" look="success">
+                        <div class="mb-4">
+                            <h5>Resumen de Multas:</h5>
+                            <b:dataTable value="#{paymentController.multas}" var="multa"
+                                       styleClass="table table-sm">
+                                <b:dataTableColumn label="Concepto">
+                                    <h:outputText value="#{multa.concepto}"/>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="Monto">
+                                    <h:outputText value="S/. #{multa.monto}"/>
+                                </b:dataTableColumn>
+                            </b:dataTable>
+                            
+                            <div class="text-end mt-3">
+                                <h4 class="text-success">Total a Pagar: S/. #{paymentController.totalPago}</h4>
+                            </div>
+                        </div>
+                        <hr/>
+                        
+                        <h:form id="paymentForm">
+                            <b:selectOneMenu label="Método de Pago" 
+                                           value="#{paymentController.metodoPago}"
+                                           required="true"
+                                           requiredMessage="Seleccione un método de pago"
+                                           styleClass="mb-4">
+                                <f:selectItem itemLabel="Seleccione método de pago" itemValue=""/>
+                                <f:selectItem itemLabel="💳 Tarjeta de Crédito/Débito" itemValue="card"/>
+                                <f:selectItem itemLabel="📱 Yape" itemValue="yape"/>
+                                <f:selectItem itemLabel="🔄 Transferencia Bancaria" itemValue="transfer"/>
+                                <f:selectItem itemLabel="💵 Efectivo" itemValue="cash"/>
+                            </b:selectOneMenu>
+                            
+                            <!-- Campos para tarjeta -->
+                            <div id="cardFields" style="display: none;" class="mb-4">
+                                <h5 class="mb-3">Información de Tarjeta</h5>
+                                <b:row>
+                                    <b:column col-md="8">
+                                        <b:inputText label="Número de Tarjeta" 
+                                                   value="#{paymentController.numeroTarjeta}"
+                                                   type="text" 
+                                                   maxlength="16"
+                                                   placeholder="1234 5678 9012 3456"/>
+                                    </b:column>
+                                    <b:column col-md="4">
+                                        <b:inputText label="CVV" 
+                                                   value="#{paymentController.cvv}"
+                                                   type="text" 
+                                                   maxlength="4"
+                                                   placeholder="123"/>
+                                    </b:column>
+                                </b:row>
+                                <b:row>
+                                    <b:column col-md="6">
+                                        <b:inputText label="Fecha Expiración" 
+                                                   value="#{paymentController.fechaExpiracion}"
+                                                   type="month"
+                                                   placeholder="MM/AAAA"/>
+                                    </b:column>
+                                    <b:column col-md="6">
+                                        <b:inputText label="Nombre en Tarjeta" 
+                                                   value="#{paymentController.nombreTarjeta}"
+                                                   type="text"
+                                                   placeholder="JUAN PEREZ"/>
+                                    </b:column>
+                                </b:row>
+                            </div>
+                            
+                            <!-- Campos para Yape -->
+                            <div id="yapeFields" style="display: none;" class="text-center mb-4">
+                                <h5 class="mb-3">Pago con Yape</h5>
+                                <h:graphicImage library="IMG" name="yape_qr.png" 
+                                              styleClass="img-fluid mb-3 border rounded"
+                                              style="max-height: 200px;"/>
+                                <p class="text-muted">Escanea el código QR con Yape para pagar</p>
+                                <p><strong>Número de celular:</strong> 999-888-777</p>
+                            </div>
+                            
+                            <!-- Campos para transferencia -->
+                            <div id="transferFields" style="display: none;" class="mb-4">
+                                <h5 class="mb-3">Transferencia Bancaria</h5>
+                                <div class="alert alert-info">
+                                    <h6>Datos para Transferencia:</h6>
+                                    <p><strong>Banco:</strong> BCP</p>
+                                    <p><strong>Cuenta:</strong> 191-23456789-0-15</p>
+                                    <p><strong>CCI:</strong> 00219112345678901519</p>
+                                    <p><strong>Titular:</strong> Ediciones Saberum S.A.C.</p>
+                                    <p class="mb-0"><strong>Concepto:</strong> Pago de multas biblioteca</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Campos para efectivo -->
+                            <div id="cashFields" style="display: none;" class="mb-4">
+                                <h5 class="mb-3">Pago en Efectivo</h5>
+                                <div class="alert alert-warning">
+                                    <h6>Pago en Efectivo:</h6>
+                                    <p>Debe acercarse a cualquiera de nuestras sedes para realizar el pago en efectivo.</p>
+                                    <p><strong>Horario de atención:</strong> Lunes a Viernes 8:00 am - 6:00 pm</p>
+                                    <p class="mb-0"><strong>Dirección principal:</strong> Av. Biblioteca 123, Lima</p>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex gap-2 mt-4">
+                                <b:commandButton value="💳 Procesar Pago" 
+                                               look="success" 
+                                               action="#{paymentController.procesarPago}"
+                                               styleClass="flex-fill"
+                                               onclick="return confirm('¿Confirmar el procesamiento del pago?')"/>
+                                
+                                <b:button value="↶ Cancelar" 
+                                        look="outline-secondary"
+                                        outcome="/panel-usuario.xhtml"
+                                        styleClass="flex-fill"/>
+                            </div>
+                        </h:form>
+                    </b:panel>
+                </b:column>
+            </b:row>
+        </div>
+        
+        <script>
+            $(document).ready(function() {
+                $('#paymentForm\\:metodoPago').on('change', function() {
+                    const metodo = $(this).val();
+                    
+                    $('#cardFields, #yapeFields, #transferFields, #cashFields').hide();
+                    
+                    switch(metodo) {
+                        case 'card':
+                            $('#cardFields').show();
+                            break;
+                        case 'yape':
+                            $('#yapeFields').show();
+                            break;
+                        case 'transfer':
+                            $('#transferFields').show();
+                            break;
+                        case 'cash':
+                            $('#cashFields').show();
+                            break;
+                    }
+                });
+                
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('pago') === 'exitoso') {
+                    $('html, body').animate({
+                        scrollTop: 0
+                    }, 500);
+                }
+            });
+        </script>
+    </ui:define>
+</ui:composition>

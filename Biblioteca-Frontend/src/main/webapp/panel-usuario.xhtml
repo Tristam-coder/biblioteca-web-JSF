@@ -1,0 +1,159 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/template.xhtml">
+
+    <ui:define name="title">Panel de Usuario - #{sessionController.userName}</ui:define>
+
+    <ui:define name="content">
+        <div class="container py-4">
+            <div class="breadcrumb mb-4">
+                <b:link value="Inicio" outcome="/index.xhtml"/>
+                <span class="mx-2 text-muted">/</span>
+                <span class="text-primary">Panel de Usuario</span>
+            </div>
+            
+            <h1 class="mb-4">Bienvenido, #{sessionController.userName}</h1>
+            
+            <!-- Mostrar mensaje de pago exitoso -->
+            <h:panelGroup rendered="#{param.pago eq 'exitoso'}">
+                <b:alert look="success" show="true" styleClass="mb-4">
+                    <strong>✅ Pago procesado exitosamente:</strong> Tus multas han sido pagadas correctamente.
+                </b:alert>
+            </h:panelGroup>
+            
+            <b:row>
+                <b:column col-lg="8">
+                    <b:tabView>
+                        <b:tab title="📚 Préstamos Activos">
+                            <b:dataTable value="#{userController.prestamosActivos}" var="prestamo"
+                                       styleClass="table table-striped table-hover" 
+                                       emptyMessage="No tienes préstamos activos">
+                                <b:dataTableColumn label="Libro" width="40%">
+                                    <h:outputText value="#{prestamo.libroTitulo}"/>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="Fecha Préstamo" width="20%">
+                                    <h:outputText value="#{prestamo.fechaPrestamo}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="Fecha Devolución" width="20%">
+                                    <h:outputText value="#{prestamo.fechaDevolucion}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="Acciones" width="20%">
+                                    <h:form style="display: inline;">
+                                        <b:commandButton value="🔄 Renovar" 
+                                                       look="primary" 
+                                                       size="xs"
+                                                       action="#{userController.renovarPrestamo(prestamo)}"
+                                                       onclick="return confirm('¿Renovar préstamo por 15 días adicionales?')"/>
+                                    </h:form>
+                                </b:dataTableColumn>
+                            </b:dataTable>
+                        </b:tab>
+                        
+                        <b:tab title="⏳ Multas Pendientes">
+                            <b:dataTable value="#{userController.multasActivas}" var="multa"
+                                       styleClass="table table-striped table-hover" 
+                                       emptyMessage="No tienes multas pendientes">
+                                <b:dataTableColumn label="Concepto" width="50%">
+                                    <h:outputText value="#{multa.concepto}"/>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="Monto" width="20%">
+                                    <h:outputText value="S/. #{multa.monto}"/>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="Fecha" width="20%">
+                                    <h:outputText value="#{multa.fecha}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="Acciones" width="10%">
+                                    <h:form style="display: inline;">
+                                        <b:commandButton value="💳 Pagar" 
+                                                       look="success" 
+                                                       size="xs"
+                                                       action="#{userController.pagarMulta(multa)}"/>
+                                    </h:form>
+                                </b:dataTableColumn>
+                            </b:dataTable>
+                            
+                            <div class="mt-3" rendered="#{not empty userController.multasActivas}">
+                                <h:form style="display: inline;">
+                                    <b:commandButton value="💳 Pagar Todas las Multas (S/. #{userController.totalMultasPendientes})" 
+                                                   look="warning"
+                                                   action="#{userController.pagarTodasMultas}"/>
+                                </h:form>
+                            </div>
+                        </b:tab>
+
+                        <b:tab title="📋 Historial de Préstamos">
+                            <b:dataTable value="#{userController.historialPrestamos}" var="historial"
+                                       styleClass="table table-striped table-hover" 
+                                       emptyMessage="No hay historial de préstamos">
+                                <b:dataTableColumn label="Libro" width="40%">
+                                    <h:outputText value="#{historial.libroTitulo}"/>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="Fecha Préstamo" width="20%">
+                                    <h:outputText value="#{historial.fechaPrestamo}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="Fecha Devolución" width="20%">
+                                    <h:outputText value="#{historial.fechaDevolucionReal}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="Estado" width="20%">
+                                    <span class="badge bg-secondary">Completado</span>
+                                </b:dataTableColumn>
+                            </b:dataTable>
+                        </b:tab>
+                    </b:tabView>
+                </b:column>
+                
+                <b:column col-lg="4">
+                    <b:panel title="📊 Resumen de Cuenta" look="info" class="mb-4">
+                        <div class="mb-3">
+                            <strong>Préstamos activos:</strong> 
+                            <span class="float-end badge bg-primary">#{userController.prestamosActivos.size()}</span>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Multas pendientes:</strong> 
+                            <span class="float-end badge bg-danger">S/. #{userController.totalMultasPendientes}</span>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Libros reservados:</strong> 
+                            <span class="float-end badge bg-warning">#{userController.reservasActivas.size()}</span>
+                        </div>
+                        <div class="mb-0">
+                            <strong>Historial:</strong> 
+                            <span class="float-end badge bg-secondary">#{userController.historialPrestamos.size()}</span>
+                        </div>
+                    </b:panel>
+
+                    <b:panel title="🚀 Acciones Rápidas" look="primary">
+                        <div class="d-grid gap-2">
+                            <b:button value="📚 Explorar Catálogo" 
+                                     look="outline-primary" 
+                                     outcome="/catalogo.xhtml"
+                                     size="sm"/>
+                            <b:button value="📖 Solicitar Préstamo" 
+                                     look="outline-success" 
+                                     outcome="/catalogo.xhtml"
+                                     size="sm"/>
+                            <b:button value="💳 Pagar Multas" 
+                                     look="outline-warning" 
+                                     outcome="/pago.xhtml"
+                                     rendered="#{userController.totalMultasPendientes > 0}"
+                                     size="sm"/>
+                        </div>
+                    </b:panel>
+                </b:column>
+            </b:row>
+        </div>
+    </ui:define>
+</ui:composition>
