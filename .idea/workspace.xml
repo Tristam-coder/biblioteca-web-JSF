@@ -10,254 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64762ee9-f36e-4444-b4bd-4750e783c18f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/java/com/libreria/client/RestClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/webapp/WEB-INF/faces-config.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/webapp/WEB-INF/template.xhtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/webapp/index.xhtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/webapp/pages/autores.xhtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/webapp/pages/editoriales.xhtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/webapp/pages/ejemplares.xhtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/webapp/pages/historial.xhtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/webapp/pages/multas.xhtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/webapp/pages/notificaciones.xhtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/webapp/pages/obras.xhtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/webapp/pages/prestamos.xhtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/webapp/pages/reservas.xhtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/webapp/pages/usuarios.xhtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/webapp/resources/css/biblioteca.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/webapp/resources/js/biblioteca.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/faces-config.NavData" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/java/com/libreria/beans/ObraBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/nb-configuration.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/JakartaRestConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/api/BibliotecaApi.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/controller/AdminController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/controller/AuthController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/controller/BookDetailController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/controller/CatalogoController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/controller/LoanRequestController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/controller/NavigationController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/controller/PaymentController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/controller/RecoveryController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/controller/RegisterController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/controller/SessionController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/controller/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/filter/CharacterEncodingFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/model/BookDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/model/FineDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/model/LoanDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/model/ReportDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/model/UserDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/java/biblioteca/frontend/resources/JakartaEE8Resource.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/resources/IMG/1984.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/resources/IMG/Cred_Debi.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/resources/IMG/La_casa_es.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/resources/IMG/cien_años.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/resources/IMG/don_quijote.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/resources/IMG/efectivo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/resources/IMG/logo-biblio.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/resources/IMG/paramo.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/resources/IMG/rayuela.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/resources/IMG/transferencia.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/resources/IMG/yape.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/resources/IMG/yape_qr.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/resources/META-INF/persistence.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/WEB-INF/beans.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/WEB-INF/faces-config.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/WEB-INF/web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/catalogo.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/detalle-obra.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/gestion-usuarios.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/index.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/login.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/pago.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/panel-usuario.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/recuperar-contrasena.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/registro.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/resources/IMG/1984.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/resources/IMG/Cred_Debi.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/resources/IMG/La_casa_es.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/resources/IMG/cien_años.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/resources/IMG/don_quijote.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/resources/IMG/efectivo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/resources/IMG/logo-biblio.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/resources/IMG/paramo.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/resources/IMG/rayuela.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/resources/IMG/transferencia.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/resources/IMG/yape.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/resources/IMG/yape_qr.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/resources/css/app.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/resources/js/app.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/solicitud-prestamo.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/template.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/src/main/webapp/test-imagenes.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca.war" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/beans.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/IMG/1984.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/IMG/Cred_Debi.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/IMG/La_casa_es.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/IMG/cien_años.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/IMG/don_quijote.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/IMG/efectivo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/IMG/logo-biblio.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/IMG/paramo.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/IMG/rayuela.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/IMG/transferencia.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/IMG/yape.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/IMG/yape_qr.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/META-INF/persistence.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/JakartaRestConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/api/BibliotecaApi.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/controller/AdminController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/controller/AuthController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/controller/BookDetailController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/controller/CatalogoController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/controller/LoanRequestController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/controller/NavigationController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/controller/PaymentController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/controller/RecoveryController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/controller/RegisterController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/controller/SessionController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/controller/UserController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/filter/CharacterEncodingFilter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/model/BookDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/model/FineDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/model/LoanDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/model/ReportDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/model/UserDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/classes/biblioteca/frontend/resources/JakartaEE8Resource.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/faces-config.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/lib/animal-sniffer-annotations-1.17.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/lib/bootsfaces-1.5.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/lib/bootstrap-5.3.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/lib/checker-qual-2.5.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/lib/error_prone_annotations-2.2.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/lib/failureaccess-1.0.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/lib/guava-27.1-jre.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/lib/j2objc-annotations-1.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/lib/javax.faces-2.3.9.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/lib/jquery-3.7.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/lib/jsr305-3.0.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/lib/owasp-java-html-sanitizer-20191001.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/WEB-INF/web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/catalogo.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/detalle-obra.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/gestion-usuarios.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/index.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/login.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/pago.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/panel-usuario.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/recuperar-contrasena.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/registro.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/resources/IMG/1984.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/resources/IMG/Cred_Debi.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/resources/IMG/La_casa_es.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/resources/IMG/cien_años.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/resources/IMG/don_quijote.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/resources/IMG/efectivo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/resources/IMG/logo-biblio.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/resources/IMG/paramo.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/resources/IMG/rayuela.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/resources/IMG/transferencia.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/resources/IMG/yape.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/resources/IMG/yape_qr.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/resources/css/app.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/resources/js/app.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/solicitud-prestamo.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/template.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/biblioteca/test-imagenes.xhtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/IMG/1984.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/IMG/Cred_Debi.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/IMG/La_casa_es.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/IMG/cien_años.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/IMG/don_quijote.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/IMG/efectivo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/IMG/logo-biblio.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/IMG/paramo.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/IMG/rayuela.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/IMG/transferencia.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/IMG/yape.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/IMG/yape_qr.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/META-INF/persistence.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/JakartaRestConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/api/BibliotecaApi.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/controller/AdminController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/controller/AuthController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/controller/BookDetailController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/controller/CatalogoController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/controller/LoanRequestController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/controller/NavigationController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/controller/PaymentController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/controller/RecoveryController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/controller/RegisterController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/controller/SessionController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/controller/UserController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/filter/CharacterEncodingFilter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/model/BookDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/model/FineDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/model/LoanDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/model/ReportDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/model/UserDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/classes/biblioteca/frontend/resources/JakartaEE8Resource.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/java/com/libreria/beans/PrestamoBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Biblioteca-Frontend/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/java/com/libreria/beans/UsuarioBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/resources/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/AutorResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/AutorResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/EditorialResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/EditorialResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/EjemplarResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/EjemplarResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/HistorialResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/HistorialResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/MultaResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/MultaResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/NotificacionResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/NotificacionResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/ObraAutorResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/ObraAutorResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/ObraResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/ObraResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/PrestamoResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/PrestamoResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/ReservaResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/ReservaResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/TipoObraResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/TipoObraResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/UsuarioResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/rs/UsuarioResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/service/EjemplarService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/service/EjemplarService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/service/HistorialService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/service/HistorialService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/service/MultaService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/service/MultaService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/service/NotificacionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/service/NotificacionService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/service/ObraAutorService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/service/ObraAutorService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/service/ObraService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/service/ObraService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/service/PrestamoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/service/PrestamoService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/service/ReservaService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/service/ReservaService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/util/converter/LocalDateConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/Proyecto_Libreria-1.0-SNAPSHOT/WEB-INF/classes/com/libreria/util/converter/LocalDateConverter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/AutorResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/AutorResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/EditorialResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/EditorialResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/EjemplarResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/EjemplarResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/HistorialResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/HistorialResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/MultaResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/MultaResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/NotificacionResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/NotificacionResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/ObraAutorResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/ObraAutorResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/ObraResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/ObraResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/PrestamoResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/PrestamoResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/ReservaResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/ReservaResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/TipoObraResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/TipoObraResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/UsuarioResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/rs/UsuarioResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/service/EjemplarService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/service/EjemplarService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/service/HistorialService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/service/HistorialService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/service/MultaService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/service/MultaService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/service/NotificacionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/service/NotificacionService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/service/ObraAutorService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/service/ObraAutorService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/service/ObraService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/service/ObraService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/service/PrestamoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/service/PrestamoService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/service/ReservaService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/service/ReservaService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/util/converter/LocalDateConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/classes/com/libreria/util/converter/LocalDateConverter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Libreriav2/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Libreriav2/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -266,6 +19,31 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="feature/full-stack" />
+                    <option name="lastUsedInstant" value="1764615972" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="develop/feacture/backend/DTOyDAO" />
+                    <option name="lastUsedInstant" value="1764615971" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -292,7 +70,7 @@
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop/feacture/backend/DTOyDAO&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/full-stack&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -376,18 +154,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
-      <deployment />
-      <server-settings />
-      <predefined_log_file enabled="true" id="Tomcat" />
-      <predefined_log_file enabled="true" id="Tomcat Catalina" />
-      <predefined_log_file id="Tomcat Manager" />
-      <predefined_log_file id="Tomcat Host Manager" />
-      <predefined_log_file id="Tomcat Localhost Access" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -404,7 +170,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1764611727085</updated>
-      <workItem from="1764611727416" duration="3766000" />
+      <workItem from="1764611727416" duration="4008000" />
+      <workItem from="1764616268505" duration="9000" />
     </task>
     <servers />
   </component>
