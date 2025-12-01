@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+  <!-- Unidad de persistencia con JTA para aprovechar la gestión de transacciones del servidor -->
+  <persistence-unit name="AppP" transaction-type="JTA">
+    <jta-data-source>jdbc/LibreriaDS</jta-data-source>
+    <class>com.libreria.model.Autor</class>
+    <class>com.libreria.model.Editorial</class>
+    <class>com.libreria.model.Ejemplar</class>
+    <class>com.libreria.model.Historial</class>
+    <class>com.libreria.model.Multa</class>
+    <class>com.libreria.model.Notificacion</class>
+    <class>com.libreria.model.Obra</class>
+    <class>com.libreria.model.ObraAutor</class>
+    <class>com.libreria.model.Prestamo</class>
+    <class>com.libreria.model.Reserva</class>
+    <class>com.libreria.model.TipoObra</class>
+    <class>com.libreria.model.Usuario</class>
+    <properties>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+    </properties>
+  </persistence-unit>
+
+  <!-- Unidad de persistencia alternativa con RESOURCE_LOCAL (mantener para compatibilidad) -->
+  <persistence-unit name="AppP-Local" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <class>com.libreria.model.Autor</class>
+    <class>com.libreria.model.Editorial</class>
+    <class>com.libreria.model.Ejemplar</class>
+    <class>com.libreria.model.Historial</class>
+    <class>com.libreria.model.Multa</class>
+    <class>com.libreria.model.Notificacion</class>
+    <class>com.libreria.model.Obra</class>
+    <class>com.libreria.model.ObraAutor</class>
+    <class>com.libreria.model.Prestamo</class>
+    <class>com.libreria.model.Reserva</class>
+    <class>com.libreria.model.TipoObra</class>
+    <class>com.libreria.model.Usuario</class>
+    <properties>
+      <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Libreria"/>
+      <property name="jakarta.persistence.jdbc.user" value="postgres"/> <!-- Cambiar según configuración local de postgresql -->
+      <property name="jakarta.persistence.jdbc.password" value="gonza"/> <!-- Cambiar según configuración local de postgresql -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+    </properties>
+  </persistence-unit>
+</persistence>
