@@ -1,0 +1,100 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:b="http://bootsfaces.net/ui"
+                template="/template.xhtml">
+
+    <ui:define name="title">Registro de Usuario - Ediciones Saberum</ui:define>
+
+    <ui:define name="content">
+        <div class="container py-4">
+            <b:row styleClass="justify-content-center">
+                <b:column col-lg="6" col-md="8">
+                    <b:panel title="Crear Cuenta en Ediciones Saberum" look="info">
+                        <h:form id="registerForm">
+                            <b:row>
+                                <b:column col-md="6">
+                                    <b:inputText label="Nombres" 
+                                               value="#{registerController.usuario.nombres}"
+                                               required="true"
+                                               requiredMessage="Los nombres son obligatorios"
+                                               styleClass="mb-3"/>
+                                </b:column>
+                                <b:column col-md="6">
+                                    <b:inputText label="Apellidos" 
+                                               value="#{registerController.usuario.apellidos}"
+                                               required="true"
+                                               requiredMessage="Los apellidos son obligatorios"
+                                               styleClass="mb-3"/>
+                                </b:column>
+                            </b:row>
+                            
+                            <b:inputText label="Correo Electrónico" 
+                                       value="#{registerController.usuario.email}"
+                                       required="true"
+                                       requiredMessage="El correo electrónico es obligatorio"
+                                       type="email"
+                                       styleClass="mb-3"/>
+                            
+                            <b:inputText label="Teléfono" 
+                                       value="#{registerController.usuario.telefono}"
+                                       type="tel"
+                                       styleClass="mb-3"/>
+                            
+                            <b:row>
+                                <b:column col-md="6">
+                                    <b:inputText label="DNI" 
+                                               value="#{registerController.usuario.dni}"
+                                               required="true"
+                                               requiredMessage="El DNI es obligatorio"
+                                               maxlength="8"
+                                               styleClass="mb-3"/>
+                                </b:column>
+                                <b:column col-md="6">
+                                    <b:inputText label="Fecha Nacimiento" 
+                                               type="date"
+                                               value="#{registerController.usuario.fechaNacimiento}"
+                                               styleClass="mb-3"/>
+                                </b:column>
+                            </b:row>
+                            
+                            <b:row>
+                                <b:column col-md="6">
+                                    <b:inputSecret label="Contraseña" 
+                                                 value="#{registerController.password}"
+                                                 required="true"
+                                                 requiredMessage="La contraseña es obligatoria"
+                                                 styleClass="mb-3"/>
+                                </b:column>
+                                <b:column col-md="6">
+                                    <b:inputSecret label="Confirmar Contraseña" 
+                                                 value="#{registerController.confirmPassword}"
+                                                 required="true"
+                                                 requiredMessage="Debe confirmar la contraseña"
+                                                 styleClass="mb-3"/>
+                                </b:column>
+                            </b:row>
+                            
+                            <b:selectBooleanCheckbox label="Acepto los términos y condiciones" 
+                                                   value="#{registerController.aceptaTerminos}"
+                                                   required="true"
+                                                   requiredMessage="Debe aceptar los términos y condiciones"
+                                                   styleClass="mb-4"/>
+                            
+                            <b:commandButton value="Registrarse" 
+                                             look="info" 
+                                             action="#{registerController.registrar}"
+                                             styleClass="w-100 mb-3"/>
+                        </h:form>
+                    </b:panel>
+
+                    <div class="text-center mt-3">
+                        <span class="text-muted">¿Ya tienes cuenta? </span>
+                        <b:link value="Inicia sesión aquí" 
+                                outcome="/login.xhtml"/>
+                    </div>
+                </b:column>
+            </b:row>
+        </div>
+    </ui:define>
+</ui:composition>
