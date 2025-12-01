@@ -1,136 +1,112 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.libreria.service;
 
-/**
- *
- * @author CESAR
- */
-
+import com.libreria.dao.EditorialDAO; // Necesario para la relación
+import com.libreria.dao.ObraDAO;
+import com.libreria.dao.TipoObraDAO; // Necesario para la relación
+import com.libreria.model.Editorial;
 import com.libreria.model.Obra;
-import jakarta.persistence.*;
+import com.libreria.model.TipoObra;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import java.util.List;
 
 /**
  * Servicio para manejar operaciones CRUD de la entidad Obra.
  */
+@RequestScoped // CDI Scope
 public class ObraService {
 
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("AppP");
+    @Inject
+    private ObraDAO obraDao;
+
+    // 🎯 Asumimos que existen los DAOs para las relaciones:
+    @Inject
+    private TipoObraDAO tipoObraDao;
+    @Inject
+    private EditorialDAO editorialDao;
+
 
     // --------------------------------------------------
     // OPERACIÓN: CREAR (INSERTAR)
     // --------------------------------------------------
-    public Obra create(Obra o) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.persist(o);
-            tx.commit();
-            return o;
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
+    public Obra create(Obra o, Integer tipoObraId, Integer editorialId) {
+
+        // 1. Obtener entidades relacionadas (Managed Entities)
+        TipoObra tipoObra = tipoObraDao.find(tipoObraId);
+        Editorial editorial = editorialDao.find(editorialId);
+
+        if (tipoObra == null) {
+            throw new RuntimeException("Tipo de Obra con ID " + tipoObraId + " no encontrado.");
         }
+        if (editorial == null) {
+            throw new RuntimeException("Editorial con ID " + editorialId + " no encontrada.");
+        }
+
+        // 2. Asignar relaciones
+        o.setTipoObra(tipoObra);
+        o.setEditorial(editorial);
+
+        // 3. Persistir
+        return obraDao.create(o);
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ENCONTRAR POR ID (SELECT)
     // --------------------------------------------------
     public Obra find(Integer id) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.find(Obra.class, id);
-        } finally {
-            em.close();
-        }
+        return obraDao.find(id);
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ENCONTRAR TODOS (SELECT ALL)
     // --------------------------------------------------
     public List<Obra> findAll() {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.createQuery("SELECT o FROM Obra o", Obra.class).getResultList();
-        } finally {
-            em.close();
-        }
+        return obraDao.findAll();
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ACTUALIZAR (UPDATE)
     // --------------------------------------------------
-    public Obra update(Integer id, Obra cambios) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            Obra o = em.find(Obra.class, id);
+    public Obra update(Integer id, Obra cambios, Integer tipoObraId, Integer editorialId) {
+        Obra o = obraDao.find(id);
 
-            if (o == null) {
-                tx.rollback();
-                return null;
-            }
-            
-            // Aplicar cambios:
-            o.setTitulo(cambios.getTitulo());
-            o.setIsbnIssn(cambios.getIsbnIssn());
-            o.setTipoObra(cambios.getTipoObra());
-            o.setEditorial(cambios.getEditorial());
-            o.setAnioPublicacion(cambios.getAnioPublicacion());
-            o.setEdicion(cambios.getEdicion());
-            o.setNumeroPaginas(cambios.getNumeroPaginas());
-            o.setIdioma(cambios.getIdioma());
-            o.setAreaTematica(cambios.getAreaTematica());
-            o.setNivel(cambios.getNivel());
-            o.setDescripcion(cambios.getDescripcion());
-            o.setEstado(cambios.getEstado());
-
-            em.merge(o);
-            tx.commit();
-            return o;
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
+        if (o == null) {
+            return null;
         }
+
+        // Aplicar cambios de campos directos:
+        o.setTitulo(cambios.getTitulo());
+        o.setIsbnIssn(cambios.getIsbnIssn());
+        o.setAnioPublicacion(cambios.getAnioPublicacion());
+        o.setEdicion(cambios.getEdicion());
+        o.setNumeroPaginas(cambios.getNumeroPaginas());
+        o.setIdioma(cambios.getIdioma());
+        o.setAreaTematica(cambios.getAreaTematica());
+        o.setNivel(cambios.getNivel());
+        o.setDescripcion(cambios.getDescripcion());
+        o.setEstado(cambios.getEstado());
+
+        // 1. Actualizar relación TipoObra
+        if (tipoObraId != null && (o.getTipoObra() == null || !o.getTipoObra().getId().equals(tipoObraId))) {
+            TipoObra tipoObra = tipoObraDao.find(tipoObraId);
+            if (tipoObra == null) throw new RuntimeException("Tipo Obra ID " + tipoObraId + " no encontrado.");
+            o.setTipoObra(tipoObra);
+        }
+
+        // 2. Actualizar relación Editorial
+        if (editorialId != null && (o.getEditorial() == null || !o.getEditorial().getId().equals(editorialId))) {
+            Editorial editorial = editorialDao.find(editorialId);
+            if (editorial == null) throw new RuntimeException("Editorial ID " + editorialId + " no encontrada.");
+            o.setEditorial(editorial);
+        }
+
+        return obraDao.update(o);
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ELIMINAR (DELETE)
     // --------------------------------------------------
     public boolean delete(Integer id) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            Obra o = em.find(Obra.class, id);
-
-            if (o == null) {
-                tx.rollback();
-                return false;
-            }
-            em.remove(o);
-            tx.commit();
-            return true;
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
-        }
+        return obraDao.delete(id);
     }
 }

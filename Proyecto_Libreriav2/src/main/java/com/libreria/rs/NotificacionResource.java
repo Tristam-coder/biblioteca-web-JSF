@@ -1,33 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.libreria.rs;
 
-/**
- *
- * @author CESAR
- */
-
-
 import com.libreria.model.Notificacion;
+import com.libreria.dto.NotificacionDTO;
 import com.libreria.service.NotificacionService;
+import jakarta.inject.Inject; // Importante: Usar inyección
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/notificaciones")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class NotificacionResource {
 
-    private NotificacionService service = new NotificacionService();
+    @Inject // 🎯 Usar inyección CDI/EJB
+    private NotificacionService service;
 
     @GET
     public Response listar() {
         List<Notificacion> all = service.findAll();
-        return Response.ok(all).build();
+        // Mapear Entidades a DTOs
+        List<NotificacionDTO> dtos = all.stream()
+                .map(NotificacionDTO::new)
+                .collect(Collectors.toList());
+        return Response.ok(dtos).build();
     }
 
     @GET
@@ -37,24 +35,46 @@ public class NotificacionResource {
         if (n == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(n).build();
+        // Retornar el DTO
+        return Response.ok(new NotificacionDTO(n)).build();
     }
 
     @POST
-    public Response crear(Notificacion notificacion, @Context UriInfo uriInfo) {
-        Notificacion creado = service.create(notificacion);
-        URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(creado.getId())).build();
-        return Response.created(uri).entity(creado).build();
+    public Response crear(NotificacionDTO notificacionDTO, @Context UriInfo uriInfo) {
+
+        Notificacion notificacion = notificacionDTO.toEntity();
+
+        try {
+            // Llamar al servicio, pasando el ID de la relación
+            Notificacion creado = service.create(notificacion, notificacionDTO.getUsuarioId());
+
+            URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(creado.getId())).build();
+            // Retornar el DTO del objeto creado
+            return Response.created(uri).entity(new NotificacionDTO(creado)).build();
+        } catch (RuntimeException e) {
+            // Manejo de error para Usuario no encontrado
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
     }
 
     @PUT
     @Path("{id}")
-    public Response actualizar(@PathParam("id") Integer id, Notificacion cambios) {
-        Notificacion actualizado = service.update(id, cambios);
-        if (actualizado == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+    public Response actualizar(@PathParam("id") Integer id, NotificacionDTO cambiosDTO) {
+
+        Notificacion cambios = cambiosDTO.toEntity();
+
+        try {
+            // Llamar al servicio, pasando el ID para actualizar la relación
+            Notificacion actualizado = service.update(id, cambios, cambiosDTO.getUsuarioId());
+
+            if (actualizado == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            // Retornar el DTO
+            return Response.ok(new NotificacionDTO(actualizado)).build();
+        } catch (RuntimeException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-        return Response.ok(actualizado).build();
     }
 
     @DELETE

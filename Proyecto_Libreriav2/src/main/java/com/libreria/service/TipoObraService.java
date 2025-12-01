@@ -1,126 +1,64 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.libreria.service;
 
-/**
- *
- * @author CESAR
- */
-
+import com.libreria.dao.TipoObraDAO;
 import com.libreria.model.TipoObra;
-import jakarta.persistence.*;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import java.util.List;
 
 /**
  * Servicio para manejar operaciones CRUD de la entidad TipoObra.
  */
+@RequestScoped // CDI Scope
 public class TipoObraService {
 
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("AppP");
+    @Inject // Inyección del DAO
+    private TipoObraDAO tipoObraDao;
 
     // --------------------------------------------------
     // OPERACIÓN: CREAR (INSERTAR)
     // --------------------------------------------------
+    // No necesita IDs de relaciones
     public TipoObra create(TipoObra t) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.persist(t);
-            tx.commit();
-            return t;
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
-        }
+        return tipoObraDao.create(t);
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ENCONTRAR POR ID (SELECT)
     // --------------------------------------------------
     public TipoObra find(Integer id) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.find(TipoObra.class, id);
-        } finally {
-            em.close();
-        }
+        return tipoObraDao.find(id);
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ENCONTRAR TODOS (SELECT ALL)
     // --------------------------------------------------
     public List<TipoObra> findAll() {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.createQuery("SELECT t FROM TipoObra t", TipoObra.class).getResultList();
-        } finally {
-            em.close();
-        }
+        return tipoObraDao.findAll();
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ACTUALIZAR (UPDATE)
     // --------------------------------------------------
+    // No necesita IDs de relaciones
     public TipoObra update(Integer id, TipoObra cambios) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            TipoObra t = em.find(TipoObra.class, id);
+        TipoObra t = tipoObraDao.find(id);
 
-            if (t == null) {
-                tx.rollback();
-                return null;
-            }
-            
-            // Aplicar cambios:
-            t.setNombre(cambios.getNombre());
-            t.setDescripcion(cambios.getDescripcion());
-
-            em.merge(t);
-            tx.commit();
-            return t;
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
+        if (t == null) {
+            return null;
         }
+
+        // Aplicar cambios:
+        t.setNombre(cambios.getNombre());
+        t.setDescripcion(cambios.getDescripcion());
+
+        return tipoObraDao.update(t);
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ELIMINAR (DELETE)
     // --------------------------------------------------
     public boolean delete(Integer id) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            TipoObra t = em.find(TipoObra.class, id);
-
-            if (t == null) {
-                tx.rollback();
-                return false;
-            }
-            em.remove(t);
-            tx.commit();
-            return true;
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
-        }
+        return tipoObraDao.delete(id);
     }
 }

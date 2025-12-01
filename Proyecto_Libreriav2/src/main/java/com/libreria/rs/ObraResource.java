@@ -1,33 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.libreria.rs;
 
-/**
- *
- * @author CESAR
- */
-
-
 import com.libreria.model.Obra;
+import com.libreria.dto.ObraDTO; // Importar DTO
 import com.libreria.service.ObraService;
+import jakarta.inject.Inject; // Importar inyección
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/obras")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ObraResource {
 
-    private ObraService service = new ObraService();
+    @Inject // 🎯 Usar inyección CDI/EJB
+    private ObraService service;
 
     @GET
     public Response listar() {
         List<Obra> all = service.findAll();
-        return Response.ok(all).build();
+        // Mapear Entidades a DTOs
+        List<ObraDTO> dtos = all.stream()
+                .map(ObraDTO::new)
+                .collect(Collectors.toList());
+        return Response.ok(dtos).build();
     }
 
     @GET
@@ -37,24 +35,44 @@ public class ObraResource {
         if (o == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(o).build();
+        // Retornar el DTO
+        return Response.ok(new ObraDTO(o)).build();
     }
 
     @POST
-    public Response crear(Obra obra, @Context UriInfo uriInfo) {
-        Obra creado = service.create(obra);
-        URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(creado.getId())).build();
-        return Response.created(uri).entity(creado).build();
+    public Response crear(ObraDTO obraDTO, @Context UriInfo uriInfo) {
+        Obra obra = obraDTO.toEntity();
+
+        try {
+            // Llamar al servicio, pasando los IDs de las relaciones
+            Obra creado = service.create(obra, obraDTO.getTipoObraId(), obraDTO.getEditorialId());
+
+            URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(creado.getId())).build();
+            // Retornar el DTO del objeto creado
+            return Response.created(uri).entity(new ObraDTO(creado)).build();
+        } catch (RuntimeException e) {
+            // Manejo de errores para entidades relacionadas no encontradas
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
     }
 
     @PUT
     @Path("{id}")
-    public Response actualizar(@PathParam("id") Integer id, Obra cambios) {
-        Obra actualizado = service.update(id, cambios);
-        if (actualizado == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+    public Response actualizar(@PathParam("id") Integer id, ObraDTO cambiosDTO) {
+        Obra cambios = cambiosDTO.toEntity();
+
+        try {
+            // Llamar al servicio, pasando los IDs para actualizar las relaciones
+            Obra actualizado = service.update(id, cambios, cambiosDTO.getTipoObraId(), cambiosDTO.getEditorialId());
+
+            if (actualizado == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            // Retornar el DTO
+            return Response.ok(new ObraDTO(actualizado)).build();
+        } catch (RuntimeException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-        return Response.ok(actualizado).build();
     }
 
     @DELETE

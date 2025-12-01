@@ -1,32 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.libreria.rs;
 
-/**
- *
- * @author CESAR
- */
-
 import com.libreria.model.ObraAutor;
+import com.libreria.dto.ObraAutorDTO; // Importar DTO
 import com.libreria.service.ObraAutorService;
+import jakarta.inject.Inject; // Importar inyección
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/obraautores")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ObraAutorResource {
 
-    private ObraAutorService service = new ObraAutorService();
+    @Inject // 🎯 Usar inyección CDI/EJB
+    private ObraAutorService service;
 
     @GET
     public Response listar() {
         List<ObraAutor> all = service.findAll();
-        return Response.ok(all).build();
+        // Mapear Entidades a DTOs
+        List<ObraAutorDTO> dtos = all.stream()
+                .map(ObraAutorDTO::new)
+                .collect(Collectors.toList());
+        return Response.ok(dtos).build();
     }
 
     @GET
@@ -36,24 +35,44 @@ public class ObraAutorResource {
         if (oa == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(oa).build();
+        // Retornar el DTO
+        return Response.ok(new ObraAutorDTO(oa)).build();
     }
 
     @POST
-    public Response crear(ObraAutor obraAutor, @Context UriInfo uriInfo) {
-        ObraAutor creado = service.create(obraAutor);
-        URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(creado.getId())).build();
-        return Response.created(uri).entity(creado).build();
+    public Response crear(ObraAutorDTO obraAutorDTO, @Context UriInfo uriInfo) {
+        ObraAutor obraAutor = obraAutorDTO.toEntity();
+
+        try {
+            // Llamar al servicio, pasando los IDs de las relaciones
+            ObraAutor creado = service.create(obraAutor, obraAutorDTO.getObraId(), obraAutorDTO.getAutorId());
+
+            URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(creado.getId())).build();
+            // Retornar el DTO del objeto creado
+            return Response.created(uri).entity(new ObraAutorDTO(creado)).build();
+        } catch (RuntimeException e) {
+            // Manejo de errores para entidades relacionadas no encontradas
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
     }
 
     @PUT
     @Path("{id}")
-    public Response actualizar(@PathParam("id") Integer id, ObraAutor cambios) {
-        ObraAutor actualizado = service.update(id, cambios);
-        if (actualizado == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+    public Response actualizar(@PathParam("id") Integer id, ObraAutorDTO cambiosDTO) {
+        ObraAutor cambios = cambiosDTO.toEntity();
+
+        try {
+            // Llamar al servicio, pasando los IDs para actualizar las relaciones
+            ObraAutor actualizado = service.update(id, cambios, cambiosDTO.getObraId(), cambiosDTO.getAutorId());
+
+            if (actualizado == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            // Retornar el DTO
+            return Response.ok(new ObraAutorDTO(actualizado)).build();
+        } catch (RuntimeException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-        return Response.ok(actualizado).build();
     }
 
     @DELETE

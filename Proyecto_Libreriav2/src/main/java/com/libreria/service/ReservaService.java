@@ -1,131 +1,107 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.libreria.service;
 
-/**
- *
- * @author CESAR
- */
-
+import com.libreria.dao.ObraDAO;     // Necesario para la relación
+import com.libreria.dao.ReservaDAO;
+import com.libreria.dao.UsuarioDAO;  // Necesario para la relación
+import com.libreria.model.Obra;
 import com.libreria.model.Reserva;
-import jakarta.persistence.*;
+import com.libreria.model.Usuario;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import java.util.List;
 
 /**
  * Servicio para manejar operaciones CRUD de la entidad Reserva.
  */
+@RequestScoped
 public class ReservaService {
 
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("AppP");
+    @Inject
+    private ReservaDAO reservaDao;
+
+    // 🎯 Asumimos que existen los DAOs para las entidades relacionadas:
+    @Inject
+    private UsuarioDAO usuarioDao;
+    @Inject
+    private ObraDAO obraDao;
 
     // --------------------------------------------------
     // OPERACIÓN: CREAR (INSERTAR)
     // --------------------------------------------------
-    public Reserva create(Reserva r) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.persist(r);
-            tx.commit();
-            return r;
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
+    public Reserva create(Reserva r, Integer usuarioId, Integer obraId) {
+
+        // 1. Obtener entidades relacionadas (Managed Entities)
+        Usuario usuario = usuarioDao.find(usuarioId);
+        Obra obra = obraDao.find(obraId);
+
+        if (usuario == null) {
+            throw new RuntimeException("Usuario con ID " + usuarioId + " no encontrado.");
         }
+        if (obra == null) {
+            throw new RuntimeException("Obra con ID " + obraId + " no encontrada.");
+        }
+
+        // 2. Asignar relaciones
+        r.setUsuario(usuario);
+        r.setObra(obra);
+
+        // 3. Persistir
+        return reservaDao.create(r);
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ENCONTRAR POR ID (SELECT)
     // --------------------------------------------------
     public Reserva find(Integer id) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.find(Reserva.class, id);
-        } finally {
-            em.close();
-        }
+        return reservaDao.find(id);
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ENCONTRAR TODOS (SELECT ALL)
     // --------------------------------------------------
     public List<Reserva> findAll() {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.createQuery("SELECT r FROM Reserva r", Reserva.class).getResultList();
-        } finally {
-            em.close();
-        }
+        return reservaDao.findAll();
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ACTUALIZAR (UPDATE)
     // --------------------------------------------------
-    public Reserva update(Integer id, Reserva cambios) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            Reserva r = em.find(Reserva.class, id);
+    public Reserva update(Integer id, Reserva cambios, Integer usuarioId, Integer obraId) {
+        Reserva r = reservaDao.find(id);
 
-            if (r == null) {
-                tx.rollback();
-                return null;
-            }
-            
-            // Aplicar cambios:
-            r.setUsuario(cambios.getUsuario());
-            r.setObra(cambios.getObra());
-            r.setFechaReserva(cambios.getFechaReserva());
-            r.setFechaDisponibilidadEstimada(cambios.getFechaDisponibilidadEstimada());
-            r.setEstado(cambios.getEstado());
-            r.setPosicionCola(cambios.getPosicionCola());
-            r.setNotificado(cambios.getNotificado());
-
-            em.merge(r);
-            tx.commit();
-            return r;
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
+        if (r == null) {
+            return null;
         }
+
+        // Aplicar cambios de campos directos:
+        r.setFechaReserva(cambios.getFechaReserva());
+        r.setFechaDisponibilidadEstimada(cambios.getFechaDisponibilidadEstimada());
+        r.setEstado(cambios.getEstado());
+        r.setPosicionCola(cambios.getPosicionCola());
+        r.setNotificado(cambios.getNotificado());
+
+
+        // 1. Actualizar relación Usuario
+        if (usuarioId != null && (r.getUsuario() == null || !r.getUsuario().getId().equals(usuarioId))) {
+            Usuario usuario = usuarioDao.find(usuarioId);
+            if (usuario == null) throw new RuntimeException("Usuario ID " + usuarioId + " no encontrado.");
+            r.setUsuario(usuario);
+        }
+
+        // 2. Actualizar relación Obra
+        if (obraId != null && (r.getObra() == null || !r.getObra().getId().equals(obraId))) {
+            Obra obra = obraDao.find(obraId);
+            if (obra == null) throw new RuntimeException("Obra ID " + obraId + " no encontrada.");
+            r.setObra(obra);
+        }
+
+        return reservaDao.update(r);
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ELIMINAR (DELETE)
     // --------------------------------------------------
     public boolean delete(Integer id) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            Reserva r = em.find(Reserva.class, id);
-
-            if (r == null) {
-                tx.rollback();
-                return false;
-            }
-            em.remove(r);
-            tx.commit();
-            return true;
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
-        }
+        return reservaDao.delete(id);
     }
 }
