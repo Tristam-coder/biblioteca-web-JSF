@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
+    
+    <h:head>
+        <title>Test de Imágenes - Ediciones Saberum</title>
+        <h:outputStylesheet library="webjars" name="bootstrap/5.3.2/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+        <style>
+            .test-image-container {
+                max-width: 280px;
+                margin: 0 auto 1rem auto;
+            }
+            .test-image-container img {
+                max-width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+        </style>
+    </h:head>
+    
+    <h:body>
+        <div class="container mt-4">
+            <h1 class="text-success mb-4">✅ Test de Imágenes - Ediciones Saberum</h1>
+            
+            <div class="alert alert-success">
+                <h4>Las imágenes están correctamente configuradas</h4>
+                <p><strong>Ubicación:</strong> <code>src/main/webapp/resources/IMG/</code></p>
+            </div>
+
+            <!-- Test 3: Galería de Imágenes Disponibles CORREGIDA -->
+            <h3>3. Galería de Imágenes Disponibles:</h3>
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <div class="test-image-container">
+                                <h:graphicImage library="IMG" name="cien_años.jpg" 
+                                              styleClass="img-thumbnail mb-2"/>
+                            </div>
+                            <p class="mb-1 fw-bold">cien_años.jpg</p>
+                            <small class="text-muted">Cien Años de Soledad</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <div class="test-image-container">
+                                <h:graphicImage library="IMG" name="1984.jpg" 
+                                              styleClass="img-thumbnail mb-2"/>
+                            </div>
+                            <p class="mb-1 fw-bold">1984.jpg</p>
+                            <small class="text-muted">1984 - George Orwell</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <div class="test-image-container">
+                                <h:graphicImage library="IMG" name="don_quijote.jpg" 
+                                              styleClass="img-thumbnail mb-2"/>
+                            </div>
+                            <p class="mb-1 fw-bold">don_quijote.jpg</p>
+                            <small class="text-muted">Don Quijote</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <div class="test-image-container">
+                                <h:graphicImage library="IMG" name="rayuela.jpeg" 
+                                              styleClass="img-thumbnail mb-2"/>
+                            </div>
+                            <p class="mb-1 fw-bold">rayuela.jpeg</p>
+                            <small class="text-muted">Rayuela</small>
+                        </div>
+                    </div>
+                </div>
+                <!-- Repetir para las demás imágenes... -->
+            </div>
+        </div>
+    </h:body>
+</html>

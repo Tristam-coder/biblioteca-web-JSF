@@ -1,0 +1,894 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Author     : Bryan
+*/
+
+/* Base y Tipografía */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* Header y Footer */
+.navbar-dark.bg-dark {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important; 
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 0.8rem 0;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.3rem;
+}
+
+.navbar-brand img {
+  height: 45px;
+  width: auto;
+  border-radius: 6px;
+  border: 2px solid #3498db;
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover img {
+  transform: scale(1.05);
+}
+
+.navbar-nav .nav-link {
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  border-radius: 0.375rem;
+  margin: 0 0.2rem;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #3498db !important;
+  background-color: rgba(255,255,255,0.1);
+}
+
+/* ✅ CORRECCIÓN CRÍTICA - IMÁGENES CONTROLADAS */
+.book-cover-small {
+  width: 100% !important;
+  height: 180px !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: block;
+  margin: 0 auto 1rem auto;
+}
+
+.book-cover-img {
+  width: 100% !important;
+  max-width: 300px !important;
+  height: auto !important;
+  max-height: 400px !important;
+  object-fit: cover !important;
+  border: 8px solid #fff;
+  border-radius: 0.75rem;
+  transition: transform 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  display: block;
+  margin: 0 auto;
+}
+
+/* ✅ CORRECCIÓN PARA CARDS - EVITAR SUPERPOSICIÓN */
+.book-card {
+  transition: all 0.3s ease;
+  border: none;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.book-card .card-body {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  padding: 1.25rem !important;
+  flex-grow: 1;
+}
+
+.book-card .card-body img {
+  width: 100% !important;
+  height: 180px !important;
+  object-fit: cover !important;
+  margin-bottom: 1rem !important;
+  flex-shrink: 0 !important;
+}
+
+.book-card .card-body .card-title,
+.book-card .card-body .card-subtitle,
+.book-card .card-body .card-text {
+  flex-shrink: 0;
+}
+
+.book-card .card-body .mt-auto {
+  margin-top: auto !important;
+  flex-shrink: 0;
+}
+
+/* ✅ CORRECCIÓN ESPECÍFICA PARA TEST DE IMÁGENES */
+.test-image-container {
+  width: 100%;
+  max-width: 250px;
+  margin: 0 auto 1rem auto;
+}
+
+.test-image-container img {
+  width: 100% !important;
+  height: 200px !important;
+  object-fit: cover !important;
+  border-radius: 0.5rem;
+}
+
+/* Breadcrumb */
+.breadcrumb { 
+  background: transparent; 
+  padding: 0.75rem 1rem; 
+  margin-bottom: 2rem;
+  border-radius: 0.375rem;
+  font-size: 0.9rem;
+}
+
+.breadcrumb a {
+  text-decoration: none;
+  color: #6c757d;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb a:hover {
+  color: #3498db;
+}
+
+/* Estados de Disponibilidad */
+.status { 
+  padding: 0.25rem 0.75rem; 
+  border-radius: 20px; 
+  font-size: 0.875rem; 
+  font-weight: bold; 
+  display: inline-block; 
+}
+
+.status.available { 
+  background: #d4edda; 
+  color: #155724; 
+}
+
+.status.unavailable { 
+  background: #f8d7da; 
+  color: #721c24; 
+}
+
+/* Estilos para detalle de obra */
+.book-detail {
+  min-height: 70vh;
+}
+
+.book-info h1 {
+  color: #2c3e50;
+  font-weight: 700;
+  border-bottom: 3px solid #3498db;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  font-size: 2.2rem;
+}
+
+.book-info .author {
+  font-style: italic;
+  font-size: 1.2rem;
+  color: #6c757d;
+}
+
+.book-meta {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  border-left: 4px solid #3498db;
+}
+
+.book-description {
+  line-height: 1.8;
+  font-size: 1.05rem;
+  color: #555;
+}
+
+.availability-status .badge {
+  font-size: 1rem;
+  box-shadow: 0 2px 10px rgba(40, 167, 69, 0.3);
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+}
+
+.action-buttons {
+  border-top: 2px solid #e9ecef;
+  padding-top: 2rem;
+  margin-top: 2rem;
+}
+
+/* Wizard Steps */
+.wizard-steps {
+  margin: 2rem 0;
+}
+
+.steps {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding: 0 1rem;
+}
+
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 25px;
+  left: 10%;
+  right: 10%;
+  height: 3px;
+  background: #e9ecef;
+  z-index: 1;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  flex: 1;
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #e9ecef;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  border: 4px solid white;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+}
+
+.step.active .step-number {
+  background: #3498db;
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+}
+
+.step.completed .step-number {
+  background: #28a745;
+  color: white;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+}
+
+.step-label {
+  font-size: 0.9rem;
+  color: #6c757d;
+  text-align: center;
+  font-weight: 500;
+}
+
+.step.active .step-label {
+  color: #3498db;
+  font-weight: 600;
+}
+
+.step.completed .step-label {
+  color: #28a745;
+}
+
+/* Términos y condiciones */
+.terms-box {
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 0.875rem;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+}
+
+.terms-box ul {
+  padding-left: 1.5rem;
+  margin-bottom: 0;
+}
+
+.terms-box li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* Tablas */
+.table {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.table th {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 1rem;
+}
+
+.table td {
+  vertical-align: middle;
+  padding: 0.875rem;
+  border-color: #dee2e6;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(52, 152, 219, 0.05);
+}
+
+/* Cards de estadísticas */
+.card {
+  border: none;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.card.bg-primary {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%) !important;
+}
+
+.card.bg-success {
+  background: linear-gradient(135deg, #27ae60 0%, #219653 100%) !important;
+}
+
+.card.bg-warning {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%) !important;
+}
+
+.card.bg-info {
+  background: linear-gradient(135deg, #17a2b8 0%, #138496 100%) !important;
+}
+
+/* Botones BootsFaces */
+.btn {
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  padding: 0.5rem 1.2rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #2980b9 0%, #1f618d 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #27ae60 0%, #219653 100%);
+  border: none;
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, #219653 0%, #1e8449 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);
+}
+
+.btn-outline-secondary {
+  border: 2px solid #6c757d;
+  color: #6c757d;
+  background: transparent;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  transform: translateY(-2px);
+}
+
+/* Formularios */
+.form-label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.form-control {
+  border-radius: 0.5rem;
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+  padding: 0.75rem 1rem;
+}
+
+.form-control:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Paneles BootsFaces */
+.panel {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  border: none;
+}
+
+.panel-heading {
+  font-weight: 600;
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-bottom: 1px solid #dee2e6;
+  font-size: 1.1rem;
+}
+
+.panel-body {
+  padding: 1.5rem;
+}
+
+/* Badges personalizados */
+.badge {
+  font-size: 0.75em;
+  font-weight: 500;
+  padding: 0.5em 0.75em;
+  border-radius: 0.375rem;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.9);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+  color: #3498db;
+}
+
+/* Notificaciones */
+.notifications {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1060;
+  max-width: 400px;
+}
+
+/* Alertas */
+.alert {
+  border: none;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  padding: 1rem 1.25rem;
+}
+
+.alert-success {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  color: #155724;
+  border-left: 4px solid #28a745;
+}
+
+.alert-danger {
+  background: linear-gradient(135deg, #f8d7da 0%, #f1b0b7 100%);
+  color: #721c24;
+  border-left: 4px solid #dc3545;
+}
+
+.alert-warning {
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  color: #856404;
+  border-left: 4px solid #ffc107;
+}
+
+.alert-info {
+  background: linear-gradient(135deg, #d1ecf1 0%, #b6e3ea 100%);
+  color: #0c5460;
+  border-left: 4px solid #17a2b8;
+}
+
+/* Modal personalizado */
+.modal-content {
+  border: none;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-bottom: 1px solid #dee2e6;
+  border-radius: 0.75rem 0.75rem 0 0;
+  padding: 1.25rem;
+}
+
+.modal-footer {
+  background: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+  border-radius: 0 0 0.75rem 0.75rem;
+  padding: 1.25rem;
+}
+
+/* ✅ RESPONSIVE MEJORADO */
+@media (max-width: 768px) {
+  .book-cover-img {
+    max-width: 250px !important;
+    max-height: 350px !important;
+    margin-bottom: 1.5rem;
+  }
+  
+  .book-info h1 {
+    font-size: 1.8rem;
+  }
+  
+  .steps {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0;
+  }
+  
+  .steps::before {
+    display: none;
+  }
+  
+  .step {
+    flex-direction: row;
+    gap: 1rem;
+    text-align: left;
+    width: 100%;
+  }
+  
+  .step-label {
+    text-align: left;
+    flex: 1;
+  }
+  
+  .navbar-brand {
+    font-size: 1.1rem;
+  }
+  
+  .navbar-brand img {
+    height: 35px;
+  }
+  
+  .action-buttons .btn {
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+
+  .table-responsive {
+    font-size: 0.875rem;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .book-cover-small {
+    height: 150px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  .breadcrumb {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .book-info h1 {
+    font-size: 1.6rem;
+  }
+  
+  .panel-body {
+    padding: 1rem;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .hero-section h1 {
+    font-size: 1.8rem;
+  }
+  
+  .book-cover-small {
+    height: 140px !important;
+  }
+}
+
+/* ✅ EFECTOS DE HOVER ADICIONALES */
+.card:hover .book-cover-small {
+  transform: scale(1.05);
+}
+
+.navbar-brand:hover img {
+  border-color: #2980b9;
+}
+
+/* Utilidades adicionales */
+.shadow-custom {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15) !important;
+}
+
+.text-primary-custom {
+  color: #3498db !important;
+}
+
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%) !important;
+}
+
+/* Smooth transitions para todos los elementos interactivos */
+a, button, .btn, .card, .form-control, .nav-link {
+  transition: all 0.3s ease;
+}
+
+/* Focus states para accesibilidad */
+.btn:focus, .form-control:focus, .nav-link:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.25);
+}
+
+/* Footer mejorado */
+footer {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important;
+}
+
+footer h5, footer h6 {
+  color: #3498db;
+}
+
+footer a.text-light:hover {
+  color: #3498db !important;
+}
+
+/* Mejoras para tabs */
+.nav-tabs .nav-link {
+  border: none;
+  color: #6c757d;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+}
+
+.nav-tabs .nav-link.active {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: white;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+/* Mejoras para select menus */
+.select-one-menu {
+  border-radius: 0.5rem;
+  border: 2px solid #e9ecef;
+  padding: 0.75rem;
+}
+
+/* Animaciones suaves */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scroll personalizado */
+.terms-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.terms-box::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.terms-box::-webkit-scrollbar-thumb {
+  background: #3498db;
+  border-radius: 3px;
+}
+
+.terms-box::-webkit-scrollbar-thumb:hover {
+  background: #2980b9;
+}
+
+/* ✅ CORRECCIÓN EXTRA: Forzar reset de estilos de imágenes */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ✅ CORRECCIÓN PARA GRID DE LIBROS */
+.row .col-xl-2,
+.row .col-lg-3, 
+.row .col-md-4,
+.row .col-sm-6 {
+  margin-bottom: 1.5rem;
+}
+
+/* ✅ ESTILOS ESPECÍFICOS PARA INDEX.XHTML */
+.book-card-index {
+    border: none !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    transition: all 0.3s ease !important;
+    min-height: 320px !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.book-card-index:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+}
+
+.book-card-index .card-body {
+    padding: 1rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    flex: 1 !important;
+}
+
+.image-container-index {
+    width: 100% !important;
+    height: 180px !important;
+    overflow: hidden !important;
+    border-radius: 8px !important;
+    margin-bottom: 1rem !important;
+    flex-shrink: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #f8f9fa !important;
+}
+
+.book-cover-index {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 8px !important;
+}
+
+/* ✅ RESPONSIVE PARA INDEX */
+@media (max-width: 1200px) {
+    .image-container-index {
+        height: 160px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .image-container-index {
+        height: 140px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .image-container-index {
+        height: 120px !important;
+    }
+}
+
+/* ✅ ESTILOS PARA HEADER Y FOOTER CENTRADOS */
+
+/* Header centrado */
+.navbar-brand-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar-brand {
+    display: inline-flex !important;
+    margin: 0 auto !important;
+}
+
+/* Ajuste para el toggle en móviles */
+.navbar-toggler.position-absolute {
+    z-index: 1000;
+}
+
+/* Footer centrado */
+.footer-content {
+    text-align: center;
+}
+
+.footer-contact .d-flex {
+    gap: 2rem;
+}
+
+.footer-links .d-flex {
+    gap: 1rem;
+}
+
+/* Asegurar que todo esté centrado en móviles */
+@media (max-width: 768px) {
+    .navbar-brand {
+        margin-left: 0 !important;
+    }
+    
+    .footer-contact .d-flex {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .footer-links .d-flex {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .footer-links .d-flex span {
+        display: none; /* Oculta los separadores en móvil */
+    }
+}
+
+/* Mejoras visuales para el footer */
+footer h5 {
+    color: #3498db !important;
+    font-weight: 600;
+}
+
+footer a.text-light:hover {
+    color: #3498db !important;
+    transition: color 0.3s ease;
+}
+
+/* Estilos para los íconos del footer */
+footer .fas {
+    color: #3498db;
+    width: 16px;
+}
+
