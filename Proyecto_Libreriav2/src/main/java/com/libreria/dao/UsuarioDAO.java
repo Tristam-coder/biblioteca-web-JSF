@@ -1,120 +1,59 @@
 package com.libreria.dao;
 
 import com.libreria.model.Usuario;
-import jakarta.persistence.*;
+import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.util.List;
 
 /**
- * Data Access Object para la entidad Usuario.
- * Maneja la lógica de persistencia y la interacción directa con la DB.
+ * Data Access Object para Usuario. Usa JTA y CDI/EJB para inyección y transacciones.
  */
+@Stateless // Importante para que Payara gestione la inyección y las transacciones
 public class UsuarioDAO {
 
-    // Se mantiene el factory aquí, es responsable del acceso a la DB.
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("AppP");
-
-    /**
-     * @return El EntityManagerFactory estático para reutilización.
-     */
-    protected EntityManagerFactory getEntityManagerFactory() {
-        return emf;
-    }
+    @PersistenceContext(unitName = "AppP") // Inyección del EntityManager
+    private EntityManager em;
 
     // --------------------------------------------------
-    // OPERACIÓN: CREAR (INSERTAR)
+    // OPERACIÓN: CREAR (INSERTAR) - Transacción gestionada por Payara
     // --------------------------------------------------
     public Usuario create(Usuario u) {
-        EntityManager em = getEntityManagerFactory().createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.persist(u);
-            tx.commit();
-            // La entidad ahora tiene su ID generado
-            return u;
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
-        }
+        em.persist(u);
+        return u;
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ENCONTRAR POR ID (SELECT)
     // --------------------------------------------------
     public Usuario find(Integer id) {
-        EntityManager em = getEntityManagerFactory().createEntityManager();
-        try {
-            // Retorna la entidad Usuario gestionada o null
-            return em.find(Usuario.class, id);
-        } finally {
-            em.close();
-        }
+        return em.find(Usuario.class, id);
     }
 
     // --------------------------------------------------
     // OPERACIÓN: ENCONTRAR TODOS (SELECT ALL)
     // --------------------------------------------------
     public List<Usuario> findAll() {
-        EntityManager em = getEntityManagerFactory().createEntityManager();
-        try {
-            // Retorna una lista de entidades Usuario
-            return em.createQuery("SELECT u FROM Usuario u", Usuario.class).getResultList();
-        } finally {
-            em.close();
-        }
+        return em.createQuery("SELECT u FROM Usuario u", Usuario.class).getResultList();
     }
 
     // --------------------------------------------------
-    // OPERACIÓN: ACTUALIZAR (UPDATE)
+    // OPERACIÓN: ACTUALIZAR (UPDATE) - Transacción gestionada por Payara
     // --------------------------------------------------
     public Usuario update(Usuario u) {
-        EntityManager em = getEntityManagerFactory().createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            // em.merge(u) devuelve la entidad gestionada y actualizada
-            Usuario merged = em.merge(u);
-            tx.commit();
-            return merged;
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
-        }
+        return em.merge(u);
     }
 
     // --------------------------------------------------
-    // OPERACIÓN: ELIMINAR (DELETE)
+    // OPERACIÓN: ELIMINAR (DELETE) - Transacción gestionada por Payara
     // --------------------------------------------------
     public boolean delete(Integer id) {
-        EntityManager em = getEntityManagerFactory().createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            Usuario u = em.find(Usuario.class, id);
+        Usuario u = em.find(Usuario.class, id);
 
-            if (u == null) {
-                tx.rollback();
-                return false;
-            }
-            // Importante: La entidad debe estar gestionada para poder eliminarla
-            em.remove(u);
-            tx.commit();
-            return true;
-        } catch (RuntimeException ex) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw ex;
-        } finally {
-            em.close();
+        if (u == null) {
+            return false;
         }
+        em.remove(u);
+        return true;
     }
 }

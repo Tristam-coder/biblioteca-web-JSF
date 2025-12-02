@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+        <ui:define name="titulo">Reportes - Sistema de Biblioteca</ui:define>
+
+        <ui:define name="contenido">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <!-- Encabezado -->
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.15);">
+                    <h1 style="color: white; font-size: 2.5rem; margin: 0 0 10px 0; font-weight: 700;">
+                        <i class="pi pi-chart-bar" style="margin-right: 15px;"></i>Generación de Reportes
+                    </h1>
+                    <p style="color: rgba(255,255,255,0.9); margin: 0; font-size: 1.1rem;">
+                        Genera reportes detallados en PDF o Excel del sistema de biblioteca
+                    </p>
+                </div>
+
+                <h:form id="formReportes">
+                    <!-- Panel de selección de reporte -->
+                    <p:panel header="Configuración del Reporte" style="margin-bottom: 20px;"
+                             styleClass="custom-panel">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+
+                            <!-- Tipo de Reporte -->
+                            <div>
+                                <p:outputLabel for="tipoReporte" value="Tipo de Reporte:"
+                                             style="font-weight: 600; display: block; margin-bottom: 8px;"/>
+                                <p:selectOneMenu id="tipoReporte"
+                                               value="#{reporteBean.tipoReporte}"
+                                               style="width: 100%;"
+                                               panelStyle="width: 100%;">
+                                    <f:selectItem itemLabel="Seleccione un reporte..." itemValue="" noSelectionOption="true"/>
+                                    <f:selectItems value="#{reporteBean.tiposReporte}" />
+                                    <p:ajax update="descripcionReporte" />
+                                </p:selectOneMenu>
+                            </div>
+
+                            <!-- Fecha Inicio (opcional) -->
+                            <div>
+                                <p:outputLabel for="fechaInicio" value="Fecha Inicio (opcional):"
+                                             style="font-weight: 600; display: block; margin-bottom: 8px;"/>
+                                <p:datePicker id="fechaInicio"
+                                            value="#{reporteBean.fechaInicio}"
+                                            showIcon="true"
+                                            pattern="dd/MM/yyyy"
+                                            monthNavigator="true"
+                                            yearNavigator="true"
+                                            yearRange="2020:2030"
+                                            style="width: 100%;"/>
+                            </div>
+
+                            <!-- Fecha Fin (opcional) -->
+                            <div>
+                                <p:outputLabel for="fechaFin" value="Fecha Fin (opcional):"
+                                             style="font-weight: 600; display: block; margin-bottom: 8px;"/>
+                                <p:datePicker id="fechaFin"
+                                            value="#{reporteBean.fechaFin}"
+                                            showIcon="true"
+                                            pattern="dd/MM/yyyy"
+                                            monthNavigator="true"
+                                            yearNavigator="true"
+                                            yearRange="2020:2030"
+                                            style="width: 100%;"/>
+                            </div>
+                        </div>
+
+                        <!-- Descripción del reporte seleccionado -->
+                        <p:outputPanel id="descripcionReporte" style="margin-top: 20px;">
+                            <p:panel rendered="#{reporteBean.tipoReporte != null and reporteBean.tipoReporte != ''}"
+                                    style="background: #f8f9fa; border-left: 4px solid #667eea;">
+                                <h:panelGroup rendered="#{reporteBean.tipoReporte == 'Catálogo de Obras Disponibles'}">
+                                    <div style="padding: 15px;">
+                                        <h4 style="margin: 0 0 10px 0; color: #667eea;">
+                                            <i class="pi pi-book" style="margin-right: 8px;"></i>
+                                            Catálogo de Obras Disponibles
+                                        </h4>
+                                        <p style="margin: 0; color: #666;">
+                                            Este reporte muestra todas las obras del catálogo que tienen ejemplares disponibles
+                                            para préstamo, incluyendo información del autor, editorial, categoría y cantidad disponible.
+                                        </p>
+                                    </div>
+                                </h:panelGroup>
+
+                                <h:panelGroup rendered="#{reporteBean.tipoReporte == 'Préstamos Activos'}">
+                                    <div style="padding: 15px;">
+                                        <h4 style="margin: 0 0 10px 0; color: #667eea;">
+                                            <i class="pi pi-refresh" style="margin-right: 8px;"></i>
+                                            Préstamos Activos
+                                        </h4>
+                                        <p style="margin: 0; color: #666;">
+                                            Lista de todos los préstamos activos en el sistema, mostrando el usuario,
+                                            la obra prestada, fecha de préstamo, fecha de devolución esperada y días restantes.
+                                        </p>
+                                    </div>
+                                </h:panelGroup>
+
+                                <h:panelGroup rendered="#{reporteBean.tipoReporte == 'Multas'}">
+                                    <div style="padding: 15px;">
+                                        <h4 style="margin: 0 0 10px 0; color: #667eea;">
+                                            <i class="pi pi-dollar" style="margin-right: 8px;"></i>
+                                            Multas
+                                        </h4>
+                                        <p style="margin: 0; color: #666;">
+                                            Reporte completo de multas generadas por retrasos en devoluciones,
+                                            incluyendo monto, estado de pago y usuario asociado.
+                                        </p>
+                                    </div>
+                                </h:panelGroup>
+
+                                <h:panelGroup rendered="#{reporteBean.tipoReporte == 'Usuarios'}">
+                                    <div style="padding: 15px;">
+                                        <h4 style="margin: 0 0 10px 0; color: #667eea;">
+                                            <i class="pi pi-users" style="margin-right: 8px;"></i>
+                                            Usuarios
+                                        </h4>
+                                        <p style="margin: 0; color: #666;">
+                                            Listado completo de usuarios registrados en el sistema, con información de contacto,
+                                            tipo de usuario y estado de cuenta.
+                                        </p>
+                                    </div>
+                                </h:panelGroup>
+                            </p:panel>
+                        </p:outputPanel>
+                    </p:panel>
+
+                    <!-- Botones de acción -->
+                    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                        <p:commandButton value="Generar PDF"
+                                       icon="pi pi-file-pdf"
+                                       styleClass="ui-button-danger ui-button-lg"
+                                       action="#{reporteBean.generarReportePDF}"
+                                       ajax="false"
+                                       disabled="#{reporteBean.tipoReporte == null or reporteBean.tipoReporte == ''}"
+                                       style="min-width: 200px;">
+                            <p:confirm header="Confirmar" message="¿Generar reporte en formato PDF?"
+                                     icon="pi pi-exclamation-triangle"/>
+                        </p:commandButton>
+
+                        <p:commandButton value="Generar Excel"
+                                       icon="pi pi-file-excel"
+                                       styleClass="ui-button-success ui-button-lg"
+                                       action="#{reporteBean.generarReporteExcel}"
+                                       ajax="false"
+                                       disabled="#{reporteBean.tipoReporte == null or reporteBean.tipoReporte == ''}"
+                                       style="min-width: 200px;">
+                            <p:confirm header="Confirmar" message="¿Generar reporte en formato Excel?"
+                                     icon="pi pi-exclamation-triangle"/>
+                        </p:commandButton>
+
+                        <p:button value="Volver al Inicio"
+                                icon="pi pi-home"
+                                styleClass="ui-button-secondary ui-button-lg"
+                                outcome="/index.xhtml"
+                                style="min-width: 200px;"/>
+                    </div>
+                </h:form>
+
+                <!-- Información adicional -->
+                <div style="margin-top: 40px; padding: 25px; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
+                    <h3 style="color: #2c3e50; margin-bottom: 20px; font-weight: 600;">
+                        <i class="pi pi-info-circle" style="margin-right: 10px;"></i>
+                        Información sobre los Reportes
+                    </h3>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                        <div>
+                            <h4 style="color: #667eea; margin-bottom: 10px;">
+                                <i class="pi pi-file-pdf" style="margin-right: 8px;"></i>Formato PDF
+                            </h4>
+                            <p style="color: #666; line-height: 1.6; margin: 0;">
+                                Ideal para impresión y visualización profesional.
+                                Genera un documento con formato estructurado listo para compartir.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h4 style="color: #667eea; margin-bottom: 10px;">
+                                <i class="pi pi-file-excel" style="margin-right: 8px;"></i>Formato Excel
+                            </h4>
+                            <p style="color: #666; line-height: 1.6; margin: 0;">
+                                Perfecto para análisis de datos. Permite editar, filtrar y
+                                realizar cálculos adicionales sobre la información.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h4 style="color: #667eea; margin-bottom: 10px;">
+                                <i class="pi pi-clock" style="margin-right: 8px;"></i>Datos en Tiempo Real
+                            </h4>
+                            <p style="color: #666; line-height: 1.6; margin: 0;">
+                                Todos los reportes se generan con la información más actualizada
+                                disponible en el sistema al momento de la generación.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reportes Disponibles -->
+                <div style="margin-top: 30px; padding: 25px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 12px;">
+                    <h3 style="color: #2c3e50; margin-bottom: 20px; font-weight: 600; text-align: center;">
+                        <i class="pi pi-list" style="margin-right: 10px;"></i>
+                        Reportes Disponibles en el Sistema
+                    </h3>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                        <div style="background: white; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <i class="pi pi-book" style="font-size: 2.5rem; color: #667eea; margin-bottom: 10px;"></i>
+                            <h4 style="color: #2c3e50; margin: 10px 0;">Obras Disponibles</h4>
+                            <p style="color: #7f8c8d; font-size: 0.9rem; margin: 0;">Catálogo completo</p>
+                        </div>
+
+                        <div style="background: white; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <i class="pi pi-refresh" style="font-size: 2.5rem; color: #4facfe; margin-bottom: 10px;"></i>
+                            <h4 style="color: #2c3e50; margin: 10px 0;">Préstamos</h4>
+                            <p style="color: #7f8c8d; font-size: 0.9rem; margin: 0;">Control de préstamos</p>
+                        </div>
+
+                        <div style="background: white; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <i class="pi pi-dollar" style="font-size: 2.5rem; color: #ff6a00; margin-bottom: 10px;"></i>
+                            <h4 style="color: #2c3e50; margin: 10px 0;">Multas</h4>
+                            <p style="color: #7f8c8d; font-size: 0.9rem; margin: 0;">Gestión financiera</p>
+                        </div>
+
+                        <div style="background: white; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <i class="pi pi-users" style="font-size: 2.5rem; color: #43e97b; margin-bottom: 10px;"></i>
+                            <h4 style="color: #2c3e50; margin: 10px 0;">Usuarios</h4>
+                            <p style="color: #7f8c8d; font-size: 0.9rem; margin: 0;">Base de usuarios</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diálogo de confirmación -->
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+                           responsive="true" width="350">
+                <p:commandButton value="Sí" type="button"
+                               styleClass="ui-confirmdialog-yes"
+                               icon="pi pi-check"/>
+                <p:commandButton value="No" type="button"
+                               styleClass="ui-confirmdialog-no ui-button-secondary"
+                               icon="pi pi-times"/>
+            </p:confirmDialog>
+
+            <!-- Mensajes -->
+            <p:growl id="mensajes" showDetail="true" life="4000"/>
+        </ui:define>
+    </ui:composition>
+</html>
+

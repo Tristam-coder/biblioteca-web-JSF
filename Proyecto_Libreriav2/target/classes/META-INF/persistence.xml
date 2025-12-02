@@ -16,16 +16,16 @@
     <class>com.libreria.model.TipoObra</class>
     <class>com.libreria.model.Usuario</class>
     <properties>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-      <property name="hibernate.hbm2ddl.auto" value="update"/>
-      <property name="hibernate.show_sql" value="true"/>
-      <property name="hibernate.format_sql" value="true"/>
+      <!-- EclipseLink es el proveedor por defecto de Payara -->
+      <property name="eclipselink.target-database" value="PostgreSQL"/>
+      <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+      <property name="eclipselink.logging.level" value="FINE"/>
+      <property name="eclipselink.logging.parameters" value="true"/>
     </properties>
   </persistence-unit>
 
-  <!-- Unidad de persistencia alternativa con RESOURCE_LOCAL (mantener para compatibilidad) -->
+  <!-- Unidad de persistencia alternativa con RESOURCE_LOCAL (para testing local) -->
   <persistence-unit name="AppP-Local" transaction-type="RESOURCE_LOCAL">
-    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <class>com.libreria.model.Autor</class>
     <class>com.libreria.model.Editorial</class>
     <class>com.libreria.model.Ejemplar</class>
@@ -40,13 +40,12 @@
     <class>com.libreria.model.Usuario</class>
     <properties>
       <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-      <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/Libreria"/>
-      <property name="jakarta.persistence.jdbc.user" value="postgres"/> <!-- Cambiar según configuración local de postgresql -->
-      <property name="jakarta.persistence.jdbc.password" value="Abc1234"/> <!-- Cambiar según configuración local de postgresql -->
-      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-      <property name="hibernate.hbm2ddl.auto" value="update"/>
-      <property name="hibernate.show_sql" value="true"/>
-      <property name="hibernate.format_sql" value="true"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Libreria"/>
+      <property name="jakarta.persistence.jdbc.user" value="postgres"/>
+      <property name="jakarta.persistence.jdbc.password" value="root"/>
+      <property name="eclipselink.target-database" value="PostgreSQL"/>
+      <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+      <property name="eclipselink.logging.level" value="FINE"/>
     </properties>
   </persistence-unit>
 </persistence>

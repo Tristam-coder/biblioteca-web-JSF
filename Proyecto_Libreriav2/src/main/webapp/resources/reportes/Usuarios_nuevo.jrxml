@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte_usuarios" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ec415c05-57af-4f18-a296-23daf4061059">
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+    <parameter name="FECHA_GENERACION" class="java.util.Date"/>
+    <parameter name="TITULO" class="java.lang.String"/>
+    <field name="id" class="java.lang.Integer"/>
+    <field name="dni" class="java.lang.String"/>
+    <field name="nombre" class="java.lang.String"/>
+    <field name="apellido" class="java.lang.String"/>
+    <field name="email" class="java.lang.String"/>
+    <field name="telefono" class="java.lang.String"/>
+    <field name="direccion" class="java.lang.String"/>
+    <field name="tipoUsuario" class="java.lang.String"/>
+    <field name="estado" class="java.lang.String"/>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="79" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="0" width="802" height="40" uuid="1234-5678-90ab-cdef"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="24" isBold="true"/>
+                </textElement>
+                <text><![CDATA[REPORTE DE USUARIOS]]></text>
+            </staticText>
+            <textField pattern="dd/MM/yyyy HH:mm">
+                <reportElement x="600" y="50" width="202" height="20" uuid="abcd-1234-5678-90ef"/>
+                <textElement textAlignment="Right">
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Generado: " + new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format($P{FECHA_GENERACION})]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="0" y="50" width="250" height="20" uuid="cdef-9012-3456-78ab"/>
+                <textElement>
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Sistema de Biblioteca Saberum]]></text>
+            </staticText>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="30" splitType="Stretch">
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="0" width="50" height="30" backcolor="#4A90E2" uuid="col1"/>
+                <box>
+                    <pen lineWidth="0.5" lineColor="#FFFFFF"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true" isUnderline="false" pdfFontName="Helvetica-Bold"/>
+                </textElement>
+                <text><![CDATA[ID]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="50" y="0" width="90" height="30" backcolor="#4A90E2" uuid="col2"/>
+                <box>
+                    <pen lineWidth="0.5" lineColor="#FFFFFF"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+                </textElement>
+                <text><![CDATA[DNI]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="140" y="0" width="120" height="30" backcolor="#4A90E2" uuid="col3"/>
+                <box>
+                    <pen lineWidth="0.5" lineColor="#FFFFFF"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+                </textElement>
+                <text><![CDATA[Nombre]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="260" y="0" width="120" height="30" backcolor="#4A90E2" uuid="col4"/>
+                <box>
+                    <pen lineWidth="0.5" lineColor="#FFFFFF"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+                </textElement>
+                <text><![CDATA[Apellido]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="380" y="0" width="180" height="30" backcolor="#4A90E2" uuid="col5"/>
+                <box>
+                    <pen lineWidth="0.5" lineColor="#FFFFFF"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+                </textElement>
+                <text><![CDATA[Email]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="560" y="0" width="110" height="30" backcolor="#4A90E2" uuid="col6"/>
+                <box>
+                    <pen lineWidth="0.5" lineColor="#FFFFFF"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+                </textElement>
+                <text><![CDATA[Teléfono]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="670" y="0" width="132" height="30" backcolor="#4A90E2" uuid="col7"/>
+                <box>
+                    <pen lineWidth="0.5" lineColor="#FFFFFF"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+                </textElement>
+                <text><![CDATA[Tipo]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="25" splitType="Stretch">
+            <textField>
+                <reportElement x="0" y="0" width="50" height="25" uuid="det1"/>
+                <box leftPadding="3" rightPadding="3">
+                    <pen lineWidth="0.5" lineColor="#CCCCCC"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="50" y="0" width="90" height="25" uuid="det2"/>
+                <box leftPadding="5" rightPadding="3">
+                    <pen lineWidth="0.5" lineColor="#CCCCCC"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{dni}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="140" y="0" width="120" height="25" uuid="det3"/>
+                <box leftPadding="5" rightPadding="3">
+                    <pen lineWidth="0.5" lineColor="#CCCCCC"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="260" y="0" width="120" height="25" uuid="det4"/>
+                <box leftPadding="5" rightPadding="3">
+                    <pen lineWidth="0.5" lineColor="#CCCCCC"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="380" y="0" width="180" height="25" uuid="det5"/>
+                <box leftPadding="5" rightPadding="3">
+                    <pen lineWidth="0.5" lineColor="#CCCCCC"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="560" y="0" width="110" height="25" uuid="det6"/>
+                <box leftPadding="5" rightPadding="3">
+                    <pen lineWidth="0.5" lineColor="#CCCCCC"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="670" y="0" width="132" height="25" uuid="det7"/>
+                <box leftPadding="5" rightPadding="3">
+                    <pen lineWidth="0.5" lineColor="#CCCCCC"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{tipoUsuario}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <pageFooter>
+        <band height="25">
+            <textField>
+                <reportElement x="600" y="5" width="150" height="15" uuid="foot1"/>
+                <textElement textAlignment="Right">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement x="750" y="5" width="52" height="15" uuid="foot2"/>
+                <textElement textAlignment="Left">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+</jasperReport>

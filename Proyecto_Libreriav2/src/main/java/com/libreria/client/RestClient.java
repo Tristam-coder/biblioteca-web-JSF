@@ -21,7 +21,7 @@ public class RestClient implements Serializable {
     private static final Logger LOG = Logger.getLogger(RestClient.class.getName());
 
     // URL base de la API REST
-    private static final String BASE_URL = "http://localhost:8080/Proyecto_Libreria-1.0-SNAPSHOT/api";
+    private static final String BASE_URL = "http://localhost:8083/biblioteca/api";
 
     private Client client;
 

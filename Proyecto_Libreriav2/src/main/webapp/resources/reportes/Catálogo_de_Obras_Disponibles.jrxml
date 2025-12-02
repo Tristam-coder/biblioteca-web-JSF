@@ -1,0 +1,248 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="catalogo_obras_disponibles" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d7b7996d-13af-4d79-88d2-e60558051eba">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Libreria"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="Title" fontSize="24.0" bold="true"/>
+	<style name="SubTitle" forecolor="#666666" fontSize="12.0"/>
+	<style name="ColumnHeader" forecolor="#FFFFFF" fontSize="9.0" bold="true"/>
+	<style name="Detail" fontSize="8.0"/>
+	<style name="GroupHeader" fontSize="10.0" bold="true"/>
+	<parameter name="FECHA_REPORTE" forPrompting="false" class="java.util.Date">
+		<defaultValueExpression><![CDATA[new java.util.Date()]]></defaultValueExpression>
+	</parameter>
+	<query language="sql"><![CDATA[
+        SELECT 
+            o.id AS obra_id,
+            o.titulo,
+            o.isbn_issn,
+            STRING_AGG(DISTINCT a.nombre || ' ' || COALESCE(a.apellido, ''), ', ') AS autores,
+            ed.nombre AS editorial,
+            to_obra.nombre AS tipo_obra,
+            o.anio_publicacion,
+            o.edicion,
+            o.idioma,
+            o.area_tematica,
+            o.nivel,
+            o.descripcion,
+            COUNT(e.id) AS total_ejemplares,
+            COUNT(CASE WHEN e.estado = 'DISPONIBLE' THEN 1 END) AS ejemplares_disponibles,
+            COUNT(CASE WHEN e.estado = 'PRESTADO' THEN 1 END) AS ejemplares_prestados,
+            MIN(e.ubicacion) AS ubicacion
+        FROM public.obra o
+        INNER JOIN public.editorial ed ON o.editorial_id = ed.id
+        INNER JOIN public.tipo_obra to_obra ON o.tipo_obra_id = to_obra.id
+        LEFT JOIN public.obra_autor oa ON o.id = oa.obra_id
+        LEFT JOIN public.autor a ON oa.autor_id = a.id
+        LEFT JOIN public.ejemplar e ON o.id = e.obra_id
+        
+        -- WHERE se elimina, solo queda la lógica de JOINs
+        
+        GROUP BY o.id, ed.nombre, to_obra.nombre
+        
+        -- CLÁUSULA PRINCIPAL DE DISPONIBILIDAD: Solo incluye obras con más de 0 ejemplares disponibles.
+        HAVING COUNT(CASE WHEN e.estado = 'DISPONIBLE' THEN 1 END) > 0
+        
+        ORDER BY to_obra.nombre, o.titulo
+    ]]></query>
+	<field name="obra_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="obra_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="obra_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="obra"/>
+	</field>
+	<field name="titulo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="titulo"/>
+		<property name="com.jaspersoft.studio.field.label" value="titulo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="obra"/>
+	</field>
+	<field name="isbn_issn" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="isbn_issn"/>
+		<property name="com.jaspersoft.studio.field.label" value="isbn_issn"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="obra"/>
+	</field>
+	<field name="autores" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="autores"/>
+		<property name="com.jaspersoft.studio.field.label" value="autores"/>
+	</field>
+	<field name="editorial" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="editorial"/>
+		<property name="com.jaspersoft.studio.field.label" value="editorial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="editorial"/>
+	</field>
+	<field name="tipo_obra" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="tipo_obra"/>
+		<property name="com.jaspersoft.studio.field.label" value="tipo_obra"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tipo_obra"/>
+	</field>
+	<field name="anio_publicacion" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="anio_publicacion"/>
+		<property name="com.jaspersoft.studio.field.label" value="anio_publicacion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="obra"/>
+	</field>
+	<field name="edicion" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="edicion"/>
+		<property name="com.jaspersoft.studio.field.label" value="edicion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="obra"/>
+	</field>
+	<field name="idioma" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="idioma"/>
+		<property name="com.jaspersoft.studio.field.label" value="idioma"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="obra"/>
+	</field>
+	<field name="area_tematica" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="area_tematica"/>
+		<property name="com.jaspersoft.studio.field.label" value="area_tematica"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="obra"/>
+	</field>
+	<field name="nivel" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nivel"/>
+		<property name="com.jaspersoft.studio.field.label" value="nivel"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="obra"/>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="descripcion"/>
+		<property name="com.jaspersoft.studio.field.label" value="descripcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="obra"/>
+	</field>
+	<field name="total_ejemplares" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="total_ejemplares"/>
+		<property name="com.jaspersoft.studio.field.label" value="total_ejemplares"/>
+	</field>
+	<field name="ejemplares_disponibles" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="ejemplares_disponibles"/>
+		<property name="com.jaspersoft.studio.field.label" value="ejemplares_disponibles"/>
+	</field>
+	<field name="ejemplares_prestados" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="ejemplares_prestados"/>
+		<property name="com.jaspersoft.studio.field.label" value="ejemplares_prestados"/>
+	</field>
+	<field name="ubicacion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ubicacion"/>
+		<property name="com.jaspersoft.studio.field.label" value="ubicacion"/>
+	</field>
+	<variable name="total_obras" calculation="Count" class="java.lang.Integer">
+		<expression><![CDATA[$F{obra_id}]]></expression>
+	</variable>
+	<variable name="total_ejemplares_disponibles" calculation="Sum" class="java.lang.Long">
+		<expression><![CDATA[$F{ejemplares_disponibles}]]></expression>
+	</variable>
+	<variable name="obras_por_tipo" resetType="Group" calculation="Count" resetGroup="tipo_obra_group" class="java.lang.Integer">
+		<expression><![CDATA[$F{obra_id}]]></expression>
+	</variable>
+	<group name="tipo_obra_group">
+		<expression><![CDATA[$F{tipo_obra}]]></expression>
+		<groupHeader>
+			<band height="35">
+				<element kind="rectangle" uuid="19be4918-3eef-41d6-b982-32410890a19e" mode="Opaque" x="0" y="5" width="555" height="25" backcolor="#D4E8F7">
+					<pen lineWidth="1.0" lineColor="#1E88E5"/>
+				</element>
+				<element kind="textField" uuid="eb6cfb4b-ee28-4356-826b-25b066c73258" x="10" y="10" width="350" height="20" forecolor="#0D47A1" fontName="Arial" fontSize="12.0" bold="true" vTextAlign="Middle" style="GroupHeader">
+					<expression><![CDATA[$F{tipo_obra}.toUpperCase()]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="25">
+				<element kind="textField" uuid="91cb9aef-b2f2-446d-b694-2d3063f0138f" x="400" y="5" width="150" height="15" forecolor="#1E88E5" fontName="Arial" fontSize="9.0" italic="true" bold="true" hTextAlign="Right" vTextAlign="Middle">
+					<expression><![CDATA["Obras en categoría: " + $V{obras_por_tipo}]]></expression>
+				</element>
+				<element kind="line" uuid="0eb347fb-675e-44ad-b97a-87448ac43f07" x="0" y="22" width="555" height="1" forecolor="#DDDDDD"/>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="90" splitType="Stretch">
+		<element kind="staticText" uuid="6bcd5bac-f272-4c09-bf82-25ac52f3bd7e" x="0" y="10" width="555" height="35" fontName="Arial" fontSize="22.0" bold="true" hTextAlign="Center" vTextAlign="Middle" style="Title">
+			<text><![CDATA[BIBLIOTECA SABERUM]]></text>
+		</element>
+		<element kind="staticText" uuid="352b023a-3fae-410f-bd4a-99272a8f09ac" x="0" y="45" width="555" height="22" forecolor="#1E88E5" fontName="Arial" fontSize="15.0" bold="true" hTextAlign="Center" vTextAlign="Middle" style="SubTitle">
+			<text><![CDATA[Catálogo de Obras Disponibles]]></text>
+		</element>
+		<element kind="textField" uuid="2d49ea2e-0d73-46a3-a81f-e9a25949a122" x="430" y="65" width="125" height="20" forecolor="#666666" fontName="Arial" fontSize="9.0" pattern="dd/MM/yyyy HH:mm" hTextAlign="Right">
+			<expression><![CDATA["Actualizado: " + new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format($P{FECHA_REPORTE})]]></expression>
+		</element>
+		<element kind="staticText" uuid="0d6c3055-f8aa-4e61-9742-9a8b8a9d802f" x="10" y="65" width="400" height="20" forecolor="#666666" fontName="Arial" fontSize="10.0" italic="true" vTextAlign="Middle">
+			<text><![CDATA[Incluye todas las áreas temáticas disponibles]]></text>
+		</element>
+		<element kind="line" uuid="0d1dac3a-b43c-4103-b55a-32fcc821ceec" x="0" y="88" width="555" height="1" forecolor="#1E88E5">
+			<pen lineWidth="2.0"/>
+		</element>
+	</title>
+	<detail>
+		<band height="95" splitType="Stretch">
+			<element kind="rectangle" uuid="d590e89e-9bbd-4a0a-b8bc-a4e7c46dcef3" mode="Opaque" x="0" y="5" width="555" height="85" backcolor="#FAFAFA">
+				<pen lineWidth="0.5" lineColor="#CCCCCC"/>
+			</element>
+			<element kind="textField" uuid="4257fb7d-ce47-4451-a8c6-c292dd479565" x="10" y="10" width="430" height="18" forecolor="#000000" fontName="Arial" fontSize="11.0" textAdjust="StretchHeight" bold="true" vTextAlign="Middle">
+				<expression><![CDATA[$F{titulo}]]></expression>
+			</element>
+			<element kind="textField" uuid="4fa06a3c-a3ca-4ef4-a93b-cc0872e7f163" x="450" y="10" width="95" height="18" forecolor="#1E88E5" fontName="Arial" fontSize="9.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA["ID: " + $F{obra_id}]]></expression>
+			</element>
+			<element kind="textField" uuid="373a6e79-d021-4913-acc4-8fe46eab634f" x="10" y="30" width="400" height="14" forecolor="#424242" fontName="Arial" fontSize="9.0" textAdjust="StretchHeight" italic="true">
+				<expression><![CDATA[($F{autores} != null ? $F{autores} : "Autor no especificado")]]></expression>
+			</element>
+			<element kind="textField" uuid="0337fcf0-32f2-494a-9c21-8393a471915f" x="10" y="46" width="250" height="12" forecolor="#666666" fontName="Arial" fontSize="8.0">
+				<expression><![CDATA[$F{editorial} + ($F{anio_publicacion} != null ? " (" + $F{anio_publicacion} + ")" : "")]]></expression>
+			</element>
+			<element kind="textField" uuid="ea64c586-1c30-4120-886e-32f999950c13" x="270" y="46" width="180" height="12" forecolor="#666666" fontName="Arial" fontSize="8.0">
+				<expression><![CDATA["ISBN/ISSN: " + ($F{isbn_issn} != null ? $F{isbn_issn} : "No disponible")]]></expression>
+			</element>
+			<element kind="textField" uuid="81a9e0fb-2d65-47ae-be57-9fb99e69e51e" x="10" y="60" width="180" height="12" forecolor="#666666" fontName="Arial" fontSize="8.0">
+				<expression><![CDATA[($F{area_tematica} != null ? $F{area_tematica} : "Sin categoría")]]></expression>
+			</element>
+			<element kind="textField" uuid="b5888dc5-35de-4a5f-8742-f86535de193e" x="200" y="60" width="100" height="12" forecolor="#666666" fontName="Arial" fontSize="8.0">
+				<expression><![CDATA["Nivel: " + ($F{nivel} != null ? $F{nivel} : "N/A")]]></expression>
+			</element>
+			<element kind="textField" uuid="fd5a6e30-a4ef-4653-8171-12d9ff8f73e9" x="310" y="60" width="140" height="12" forecolor="#666666" fontName="Arial" fontSize="8.0">
+				<expression><![CDATA[($F{idioma} != null ? $F{idioma} : "No especificado")]]></expression>
+			</element>
+			<element kind="textField" uuid="e5b5e014-3b88-4e2e-bdac-205966332afc" x="10" y="74" width="250" height="12" forecolor="#666666" fontName="Arial" fontSize="8.0">
+				<expression><![CDATA["Ubicación: " + ($F{ubicacion} != null ? $F{ubicacion} : "Consultar")]]></expression>
+			</element>
+			<element kind="rectangle" uuid="99745a9e-c9d7-4436-8212-bc9ef14f70e1" mode="Opaque" x="450" y="35" width="95" height="50" backcolor="#E8F5E9">
+				<pen lineWidth="1.0" lineColor="#4CAF50"/>
+			</element>
+			<element kind="staticText" uuid="151acfe1-cec4-4a4d-b56a-147880727b88" x="455" y="38" width="85" height="12" forecolor="#2E7D32" fontName="Arial" fontSize="8.0" bold="true" hTextAlign="Center">
+				<text><![CDATA[DISPONIBILIDAD]]></text>
+			</element>
+			<element kind="textField" uuid="3a85c45a-1ff8-4c4c-86df-9d7b79548113" x="455" y="52" width="85" height="14" forecolor="#1B5E20" fontName="Arial" fontSize="11.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{ejemplares_disponibles} + " / " + $F{total_ejemplares}]]></expression>
+			</element>
+			<element kind="staticText" uuid="6da61798-0bbc-4fdd-9730-a6f95801092b" x="455" y="68" width="85" height="12" forecolor="#4CAF50" fontName="Arial" fontSize="7.0" bold="true" hTextAlign="Center">
+				<text><![CDATA[DISPONIBLE]]></text>
+			</element>
+		</band>
+	</detail>
+	<pageFooter height="30" splitType="Stretch">
+		<element kind="line" uuid="348f192f-3bbe-41fc-9f11-927a1e66f241" x="0" y="5" width="555" height="1" forecolor="#CCCCCC"/>
+		<element kind="textField" uuid="eb2f5b90-14ac-4c3f-a0f7-c302cb4191b9" x="420" y="10" width="80" height="15" forecolor="#666666" fontName="Arial" fontSize="9.0" hTextAlign="Right">
+			<expression><![CDATA["Página " + $V{PAGE_NUMBER} + " de"]]></expression>
+		</element>
+		<element kind="textField" uuid="6adf25ab-318b-4047-abab-d0a1ead3c3ec" x="500" y="10" width="55" height="15" forecolor="#666666" fontName="Arial" fontSize="9.0" evaluationTime="Report">
+			<expression><![CDATA[" " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="staticText" uuid="a9cfa83a-8384-4a6c-8c16-27ce7cf5552c" x="10" y="10" width="300" height="15" forecolor="#999999" fontName="Arial" fontSize="8.0" italic="true">
+			<text><![CDATA[Consulte con el personal para reservas y más información]]></text>
+		</element>
+	</pageFooter>
+	<summary height="90" splitType="Stretch">
+		<element kind="rectangle" uuid="69697cb6-7c8f-49f3-845d-8597de7a75ab" mode="Opaque" x="0" y="10" width="555" height="70" backcolor="#E3F2FD">
+			<pen lineWidth="2.0" lineColor="#1E88E5"/>
+		</element>
+		<element kind="staticText" uuid="cb293758-c899-4e38-b04f-21095bd8d7bb" x="20" y="20" width="250" height="20" forecolor="#0D47A1" fontName="Arial" fontSize="12.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[RESUMEN DEL CATÁLOGO:]]></text>
+		</element>
+		<element kind="textField" uuid="273799de-25b8-4201-a090-327bc5f6086e" x="30" y="45" width="240" height="18" forecolor="#1E88E5" fontName="Arial" fontSize="11.0" bold="true" vTextAlign="Middle">
+			<expression><![CDATA["Total de Obras Disponibles: " + $V{total_obras}]]></expression>
+		</element>
+		<element kind="textField" uuid="7678e883-6fae-40bb-8d66-238cd2b4056e" x="300" y="45" width="240" height="18" forecolor="#4CAF50" fontName="Arial" fontSize="11.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA["Total Ejemplares Disponibles: " + $V{total_ejemplares_disponibles}]]></expression>
+		</element>
+		<element kind="staticText" uuid="3ce097b3-998c-4d61-af15-f794be86d312" x="30" y="63" width="510" height="12" forecolor="#666666" fontName="Arial" fontSize="8.0" italic="true" hTextAlign="Center">
+			<text><![CDATA[* Este catálogo incluye únicamente obras con al menos un ejemplar disponible para préstamo]]></text>
+		</element>
+	</summary>
+</jasperReport>

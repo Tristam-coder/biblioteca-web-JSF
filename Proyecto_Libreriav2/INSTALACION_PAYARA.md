@@ -34,7 +34,7 @@ Hay dos formas de descargarlo:
 ### Forma 1: Descarga manual (más fácil)
 
 1. Ve a esta página: https://www.payara.fish/downloads/payara-platform-community-edition/
-2. Busca "Payara Server 6.2023.12" o una versión más nueva
+2. Busca "Payara Server 6.2025.11" 
 3. Descarga el archivo ZIP (Full Profile)
 
 ## Paso 3: Instalar Payara

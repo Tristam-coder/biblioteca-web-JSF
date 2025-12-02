@@ -5,7 +5,7 @@ import jakarta.persistence.Converter;
 import java.time.LocalDate;
 import java.sql.Date;
 
-@Converter(autoApply = true)
+@Converter(autoApply = false) // Temporalmente deshabilitado para debugging
 public class LocalDateConverter implements AttributeConverter<LocalDate, Date> {
 
     /**

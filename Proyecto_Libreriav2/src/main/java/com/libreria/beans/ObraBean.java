@@ -105,9 +105,9 @@ public class ObraBean implements Serializable {
         this.obra.setEstado(obra.getEstado());
     }
 
-    public void eliminarObra(Integer id) {
+    public void eliminarObra(ObraDTO obra) {
         try {
-            boolean eliminada = restClient.deleteObra(id);
+            boolean eliminada = restClient.deleteObra(obra.getId());
             if (eliminada) {
                 addMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Obra eliminada correctamente");
                 cargarObras();

@@ -1,0 +1,294 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="reporte_multas" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ec304ac8-6cc8-42f6-a714-d52b8bf16668">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Libreria"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="FECHA_DESDE" class="java.util.Date">
+		<defaultValueExpression><![CDATA[new java.util.Date()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FECHA_HASTA" class="java.util.Date">
+		<defaultValueExpression><![CDATA[new java.util.Date()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ESTADO_MULTA" class="java.lang.String">
+		<defaultValueExpression><![CDATA["TODOS"]]></defaultValueExpression>
+	</parameter>
+	<query language="sql"><![CDATA[SELECT 
+            m.id as multa_id,
+            u.dni,
+            CONCAT(u.nombre, ' ', u.apellido) as nombre_completo,
+            u.email,
+            u.telefono,
+            m.monto,
+            m.motivo,
+            m.estado,
+            m.fecha_generacion,
+            m.fecha_pago,
+            p.fecha_prestamo,
+            p.fecha_devolucion_prevista,
+            p.fecha_devolucion_real,
+            o.titulo as obra_titulo,
+            e.codigo_barras
+        FROM multa m
+        INNER JOIN usuario u ON m.usuario_id = u.id
+        LEFT JOIN prestamo p ON m.prestamo_id = p.id
+        LEFT JOIN ejemplar e ON p.ejemplar_id = e.id
+        LEFT JOIN obra o ON e.obra_id = o.id
+        WHERE m.fecha_generacion BETWEEN $P{FECHA_DESDE} AND $P{FECHA_HASTA}
+        AND ($P{ESTADO_MULTA} = 'TODOS' OR m.estado = $P{ESTADO_MULTA})
+        ORDER BY m.fecha_generacion DESC, u.apellido, u.nombre]]></query>
+	<field name="multa_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="multa_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="multa_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="multa"/>
+	</field>
+	<field name="dni" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dni"/>
+		<property name="com.jaspersoft.studio.field.label" value="dni"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="usuario"/>
+	</field>
+	<field name="nombre_completo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre_completo"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre_completo"/>
+	</field>
+	<field name="email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="email"/>
+		<property name="com.jaspersoft.studio.field.label" value="email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="usuario"/>
+	</field>
+	<field name="telefono" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="telefono"/>
+		<property name="com.jaspersoft.studio.field.label" value="telefono"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="usuario"/>
+	</field>
+	<field name="monto" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="monto"/>
+		<property name="com.jaspersoft.studio.field.label" value="monto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="multa"/>
+	</field>
+	<field name="motivo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="motivo"/>
+		<property name="com.jaspersoft.studio.field.label" value="motivo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="multa"/>
+	</field>
+	<field name="estado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="estado"/>
+		<property name="com.jaspersoft.studio.field.label" value="estado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="multa"/>
+	</field>
+	<field name="fecha_generacion" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_generacion"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_generacion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="multa"/>
+	</field>
+	<field name="fecha_pago" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_pago"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_pago"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="multa"/>
+	</field>
+	<field name="fecha_prestamo" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_prestamo"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_prestamo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prestamo"/>
+	</field>
+	<field name="fecha_devolucion_prevista" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_devolucion_prevista"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_devolucion_prevista"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prestamo"/>
+	</field>
+	<field name="fecha_devolucion_real" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_devolucion_real"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_devolucion_real"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prestamo"/>
+	</field>
+	<field name="obra_titulo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="obra_titulo"/>
+		<property name="com.jaspersoft.studio.field.label" value="obra_titulo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="obra"/>
+	</field>
+	<field name="codigo_barras" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codigo_barras"/>
+		<property name="com.jaspersoft.studio.field.label" value="codigo_barras"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ejemplar"/>
+	</field>
+	<variable name="total_multas" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{monto}]]></expression>
+	</variable>
+	<variable name="total_pendientes" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{estado}.equals("PENDIENTE") ? $F{monto} : new java.math.BigDecimal(0)]]></expression>
+	</variable>
+	<variable name="total_pagadas" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{estado}.equals("PAGADA") ? $F{monto} : new java.math.BigDecimal(0)]]></expression>
+	</variable>
+	<variable name="contador_multas" calculation="Count" class="java.lang.Integer">
+		<expression><![CDATA[$F{multa_id}]]></expression>
+	</variable>
+	<pageHeader height="120">
+		<element kind="rectangle" uuid="61d1b05d-2106-4d9c-aba9-cb8a8535aa81" x="0" y="0" width="555" height="80" backcolor="#2C3E50">
+			<pen lineWidth="0.0"/>
+		</element>
+		<element kind="staticText" uuid="998c27d3-a1b9-4541-bbae-745879185e54" x="20" y="15" width="515" height="30" forecolor="#FFFFFF" fontName="Arial" fontSize="22.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[REPORTE DE MULTAS]]></text>
+		</element>
+		<element kind="staticText" uuid="b048fcfa-e685-4a6f-b6b2-bd22900732a5" x="20" y="45" width="515" height="25" forecolor="#ECF0F1" fontName="Arial" fontSize="12.0" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Sistema de Gestión Bibliotecaria]]></text>
+		</element>
+		<element kind="line" uuid="9d932aa5-ebe1-4495-9c6d-93a43f7e075c" x="0" y="85" width="555" height="1" forecolor="#E74C3C">
+			<pen lineWidth="2.0"/>
+		</element>
+		<element kind="staticText" uuid="710f7c02-8ed0-48ee-bb76-d659387bbe9d" x="20" y="95" width="80" height="20" fontSize="9.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Período:]]></text>
+		</element>
+		<element kind="textField" uuid="6cd1a634-8737-4017-b5c2-c55bc37a9332" x="100" y="95" width="100" height="20" fontSize="9.0" pattern="dd/MM/yyyy" vTextAlign="Middle">
+			<expression><![CDATA[$P{FECHA_DESDE}]]></expression>
+		</element>
+		<element kind="staticText" uuid="96aef404-d8c8-4d78-8d88-99128d9f552d" x="200" y="95" width="20" height="20" fontSize="9.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[al]]></text>
+		</element>
+		<element kind="textField" uuid="e915e7b1-25ce-4807-a759-1e5bde383f18" x="220" y="95" width="100" height="20" fontSize="9.0" pattern="dd/MM/yyyy" vTextAlign="Middle">
+			<expression><![CDATA[$P{FECHA_HASTA}]]></expression>
+		</element>
+		<element kind="staticText" uuid="48d2debc-11f2-4250-88d8-4f5eff19a94d" x="350" y="95" width="50" height="20" fontSize="9.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Estado:]]></text>
+		</element>
+		<element kind="textField" uuid="ef04163c-0ebe-4d30-a985-55b1e89019df" x="400" y="95" width="135" height="20" fontSize="9.0" vTextAlign="Middle">
+			<expression><![CDATA[$P{ESTADO_MULTA}]]></expression>
+		</element>
+	</pageHeader>
+	<columnHeader height="35">
+		<element kind="rectangle" uuid="0e6b3027-4bb3-45ff-a53b-0f47e449625f" x="0" y="0" width="555" height="30" backcolor="#34495E">
+			<pen lineWidth="0.0"/>
+		</element>
+		<element kind="staticText" uuid="a9e1b67f-0397-41cc-94d5-3b29cf5d4f1b" x="5" y="5" width="40" height="20" forecolor="#FFFFFF" fontSize="8.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[ID]]></text>
+		</element>
+		<element kind="staticText" uuid="fb82383f-88ef-4b99-ab56-f6a7652cfe96" x="50" y="5" width="60" height="20" forecolor="#FFFFFF" fontSize="8.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[DNI]]></text>
+		</element>
+		<element kind="staticText" uuid="38316f5d-797c-4496-98bc-dc356e31d0d4" x="115" y="5" width="110" height="20" forecolor="#FFFFFF" fontSize="8.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Usuario]]></text>
+		</element>
+		<element kind="staticText" uuid="4e8d36f9-a285-4efa-8705-da06ec42db9a" x="230" y="5" width="70" height="20" forecolor="#FFFFFF" fontSize="8.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[F. Generación]]></text>
+		</element>
+		<element kind="staticText" uuid="b0ce58b7-e4cb-450e-80a3-b5035f4539ad" x="305" y="5" width="60" height="20" forecolor="#FFFFFF" fontSize="8.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
+			<text><![CDATA[Monto]]></text>
+		</element>
+		<element kind="staticText" uuid="f02dfdfb-4e2d-469a-84d5-b41640487353" x="370" y="5" width="60" height="20" forecolor="#FFFFFF" fontSize="8.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Estado]]></text>
+		</element>
+		<element kind="staticText" uuid="dceec508-fc51-4461-80b6-e266076c9c4c" x="435" y="5" width="115" height="20" forecolor="#FFFFFF" fontSize="8.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Motivo]]></text>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="65">
+			<element kind="rectangle" uuid="77b69446-364a-4c62-a7bd-27200fec27ab" x="0" y="0" width="555" height="60" backcolor="#ECF0F1">
+				<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue() % 2 == 0)]]></printWhenExpression>
+				<pen lineWidth="0.0"/>
+			</element>
+			<element kind="textField" uuid="6aca3e7a-3b70-4b66-b29d-e4ddfd1f341e" x="5" y="5" width="40" height="15" fontSize="8.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{multa_id}]]></expression>
+			</element>
+			<element kind="textField" uuid="b25aafa3-ffc1-458e-ae35-f2785bb735c5" x="50" y="5" width="60" height="15" fontSize="8.0" blankWhenNull="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{dni}]]></expression>
+			</element>
+			<element kind="textField" uuid="fc19315b-2f3a-4157-b537-3b334a209057" x="115" y="5" width="110" height="15" fontSize="8.0" textAdjust="StretchHeight" bold="true" vTextAlign="Middle">
+				<expression><![CDATA[$F{nombre_completo}]]></expression>
+			</element>
+			<element kind="textField" uuid="94e0b99a-56c1-4b61-aa64-60a1da7257f6" x="115" y="20" width="110" height="12" forecolor="#7F8C8D" fontSize="7.0" blankWhenNull="true">
+				<expression><![CDATA[$F{email}]]></expression>
+			</element>
+			<element kind="textField" uuid="bd2d1e33-fdbc-4f28-84c3-48f414475632" x="230" y="5" width="70" height="15" fontSize="8.0" pattern="dd/MM/yyyy" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{fecha_generacion}]]></expression>
+			</element>
+			<element kind="textField" uuid="83325d75-309d-4653-b94d-cd91d26ba53d" x="230" y="20" width="70" height="12" forecolor="#27AE60" fontSize="7.0" pattern="dd/MM/yyyy" blankWhenNull="true" bold="true" hTextAlign="Center">
+				<printWhenExpression><![CDATA[$F{fecha_pago} != null]]></printWhenExpression>
+				<expression><![CDATA["Pagado: " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{fecha_pago})]]></expression>
+			</element>
+			<element kind="textField" uuid="984f667e-c1ea-4b1c-9788-9f78ec80cac2" x="305" y="5" width="60" height="15" fontSize="9.0" pattern="S/ #,##0.00" bold="true" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{monto}]]></expression>
+			</element>
+			<element kind="textField" uuid="b6912e6e-fa07-4fac-9cf9-06828cdad424" x="370" y="5" width="60" height="15" forecolor="#FFFFFF" fontSize="7.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{estado}]]></expression>
+				<box>
+					<pen lineWidth="0.0"/>
+				</box>
+			</element>
+			<element kind="rectangle" uuid="a3a96709-b742-49f6-b297-bb9b3de00856" x="370" y="5" width="60" height="15" backcolor="#E74C3C" radius="3">
+				<printWhenExpression><![CDATA[$F{estado}.equals("PENDIENTE")]]></printWhenExpression>
+				<pen lineWidth="0.0"/>
+			</element>
+			<element kind="rectangle" uuid="180e6af9-3fa1-4d43-8a2e-94b82b1b18da" x="370" y="5" width="60" height="15" backcolor="#27AE60" radius="3">
+				<printWhenExpression><![CDATA[$F{estado}.equals("PAGADA")]]></printWhenExpression>
+				<pen lineWidth="0.0"/>
+			</element>
+			<element kind="rectangle" uuid="89280b63-c942-403b-9f08-fbf95ad07045" x="370" y="5" width="60" height="15" backcolor="#95A5A6" radius="3">
+				<printWhenExpression><![CDATA[$F{estado}.equals("CONDONADA")]]></printWhenExpression>
+				<pen lineWidth="0.0"/>
+			</element>
+			<element kind="rectangle" uuid="e977ba34-70fe-4ca1-9992-eeda7a6ec050" x="370" y="5" width="60" height="15" backcolor="#F39C12" radius="3">
+				<printWhenExpression><![CDATA[$F{estado}.equals("ANULADA")]]></printWhenExpression>
+				<pen lineWidth="0.0"/>
+			</element>
+			<element kind="textField" uuid="5dfb858b-55a3-4c3a-9cbd-1d747dc2f003" x="435" y="5" width="115" height="30" fontSize="7.0" textAdjust="StretchHeight" blankWhenNull="true">
+				<expression><![CDATA[$F{motivo}]]></expression>
+			</element>
+			<element kind="textField" uuid="f5469fd0-a70e-4e83-97d2-e5294f4b23d0" x="115" y="35" width="435" height="20" forecolor="#7F8C8D" fontSize="7.0" textAdjust="StretchHeight" blankWhenNull="true" italic="true">
+				<expression><![CDATA["Obra: " + $F{obra_titulo} + " | Código: " + $F{codigo_barras}]]></expression>
+			</element>
+			<element kind="line" uuid="8f593ceb-ec16-4038-a9e7-dd8421854786" x="0" y="60" width="555" height="1" forecolor="#BDC3C7"/>
+		</band>
+	</detail>
+	<pageFooter height="30">
+		<element kind="line" uuid="2f0eb98c-ae9e-4aae-9500-e5d06519a4b6" x="0" y="5" width="555" height="1" forecolor="#BDC3C7"/>
+		<element kind="textField" uuid="48127f51-9ec2-4784-b35c-1f5069763d91" x="10" y="10" width="150" height="15" forecolor="#7F8C8D" fontSize="8.0" pattern="dd/MM/yyyy HH:mm">
+			<expression><![CDATA["Generado: " + new java.util.Date()]]></expression>
+		</element>
+		<element kind="textField" uuid="30a42d44-21ca-4f01-b373-50055f19ebce" x="455" y="10" width="80" height="15" forecolor="#7F8C8D" fontSize="8.0" hTextAlign="Right">
+			<expression><![CDATA["Página " + $V{PAGE_NUMBER} + " de"]]></expression>
+		</element>
+		<element kind="textField" uuid="5dfa6388-f5b0-4663-af88-c91e705d2b4a" x="535" y="10" width="20" height="15" forecolor="#7F8C8D" fontSize="8.0" evaluationTime="Report">
+			<expression><![CDATA[" " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="150">
+		<element kind="line" uuid="7ae194ea-146f-4208-ae12-479cf9202bd9" x="0" y="10" width="555" height="2" forecolor="#2C3E50">
+			<pen lineWidth="2.0"/>
+		</element>
+		<element kind="rectangle" uuid="784ea7f1-a978-47e1-a51a-0a2d51ee4e3c" x="280" y="20" width="270" height="100" backcolor="#ECF0F1" radius="5">
+			<pen lineWidth="1.0" lineColor="#BDC3C7"/>
+		</element>
+		<element kind="staticText" uuid="ef581776-e961-45fd-bda5-e18a784e9f78" x="290" y="25" width="250" height="20" forecolor="#2C3E50" fontSize="12.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[RESUMEN GENERAL]]></text>
+		</element>
+		<element kind="staticText" uuid="acfa0b0d-978d-4d6c-87fd-f4d9ee0f0177" x="295" y="50" width="150" height="15" fontSize="9.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Total de multas:]]></text>
+		</element>
+		<element kind="textField" uuid="0b0dccf9-a433-4dea-ac28-9ed23ed21d6b" x="450" y="50" width="90" height="15" fontSize="9.0" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA[$V{contador_multas}]]></expression>
+		</element>
+		<element kind="staticText" uuid="e8f27ed1-5068-443b-92c6-7a4a7b946e4c" x="295" y="67" width="150" height="15" fontSize="9.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Monto total:]]></text>
+		</element>
+		<element kind="textField" uuid="b88e7ebf-0070-4637-8c70-e5405bef80cc" x="450" y="67" width="90" height="15" fontSize="10.0" pattern="S/ #,##0.00" bold="true" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA[$V{total_multas}]]></expression>
+		</element>
+		<element kind="staticText" uuid="5613a273-555e-4665-ab70-98f746e93425" x="295" y="84" width="150" height="15" forecolor="#E74C3C" fontSize="9.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Pendiente de cobro:]]></text>
+		</element>
+		<element kind="textField" uuid="f71584a3-fdf4-4e29-abd1-8651a6747a4a" x="450" y="84" width="90" height="15" forecolor="#E74C3C" fontSize="9.0" pattern="S/ #,##0.00" bold="true" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA[$V{total_pendientes}]]></expression>
+		</element>
+		<element kind="staticText" uuid="3aba871f-47b9-48e8-b2f4-24200898c958" x="295" y="101" width="150" height="15" forecolor="#27AE60" fontSize="9.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Total cobrado:]]></text>
+		</element>
+		<element kind="textField" uuid="ed921232-69bb-4562-bcc4-90af44e7f449" x="450" y="101" width="90" height="15" forecolor="#27AE60" fontSize="9.0" pattern="S/ #,##0.00" bold="true" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA[$V{total_pagadas}]]></expression>
+		</element>
+		<element kind="staticText" uuid="1488073b-9a1c-4534-b1eb-b73c3c474d54" x="10" y="130" width="270" height="15" forecolor="#7F8C8D" fontSize="7.0" italic="true">
+			<text><![CDATA[Este reporte fue generado automáticamente por el Sistema de Gestión Bibliotecaria]]></text>
+		</element>
+	</summary>
+</jasperReport>
